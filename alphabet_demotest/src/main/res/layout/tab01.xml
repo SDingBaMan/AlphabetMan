@@ -1,0 +1,401 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/viewpager"
+        android:layout_width="match_parent"
+        android:layout_height="200dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/viewpager"
+        android:background="#33000000"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/image_desc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/app_name"
+            android:textColor="@android:color/white"
+            android:textSize="18sp" />
+
+        <LinearLayout
+            android:id="@+id/point_group"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="5dp"
+            android:orientation="horizontal"></LinearLayout>
+    </LinearLayout>
+
+    <View
+        android:id="@+id/view_filter"
+        android:layout_width="match_parent"
+        android:layout_height="1.0dp"
+        android:layout_below="@+id/viewpager"
+        android:layout_marginBottom="1dp"
+        android:layout_marginTop="2dp"
+        android:background="#aeabab"
+        android:padding="1dp" />
+
+    <ScrollView
+        android:id="@+id/ScrollView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/view_filter">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="35dp"
+                android:layout_marginTop="1dp"
+                android:background="@drawable/preference_first_item"
+                android:clickable="true"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="25dp"
+                    android:padding="8dp"
+                    android:text="@string/string_hall_shuliang"
+                    android:textColor="#000"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/newDayXiNumber"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="70dp"
+                    android:text="10根"
+                    android:textSize="18dp"
+
+                    />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="35dp"
+                android:background="@drawable/preference_item"
+                android:clickable="true"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="25dp"
+                    android:padding="8dp"
+                    android:text="@string/string_hall_shengyu"
+                    android:textColor="#000"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/lastNumber"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="70dp"
+                    android:text="3根"
+                    android:textSize="18dp"
+
+                    />
+            </RelativeLayout>
+
+            <!--<RelativeLayout-->
+            <!--android:layout_width="fill_parent"-->
+            <!--android:layout_height="50dp"-->
+            <!--android:background="@drawable/preference_item"-->
+            <!--android:clickable="true"-->
+            <!--android:gravity="center_vertical">-->
+
+            <!--<TextView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_centerVertical="true"-->
+            <!--android:layout_marginLeft="25dp"-->
+            <!--android:padding="8dp"-->
+            <!--android:text="今日吸烟数量 : "-->
+            <!--android:textColor="#000"-->
+            <!--android:textSize="17sp" />-->
+            <!--<TextView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_centerVertical="true"-->
+            <!--android:text="3根"-->
+            <!--android:textSize="22dp"-->
+            <!--android:layout_marginRight="70dp"-->
+            <!--android:layout_alignParentRight="true"-->
+
+            <!--/>-->
+            <!--</RelativeLayout>-->
+
+
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="38dp"
+                android:background="@drawable/preference_last_item"
+                android:clickable="true"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="56dp"
+                    android:padding="8dp"
+                    android:text="@string/string_hall_zongAll"
+                    android:textColor="#000"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/AllYunNumber"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="70dp"
+                    android:text="24根"
+                    android:textSize="18dp" />
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1.0dp"
+                android:layout_below="@+id/viewpager"
+                android:layout_marginBottom="2dp"
+                android:layout_marginTop="1dp"
+                android:background="#aeabab"
+                android:padding="2dp" />
+
+            <LinearLayout
+                android:id="@+id/hall_buttonList"
+                android:layout_width="match_parent"
+                android:layout_height="95dip"
+                android:orientation="horizontal">
+
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/hall_btn_list_item"
+                    android:clickable="true"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:paddingBottom="2dp"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:paddingTop="2dp">
+
+                    <ImageView
+                        android:layout_width="60dip"
+                        android:layout_height="60dip"
+                        android:src="@drawable/tabbar_compose_headlines" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:text="@string/string_hall_button1" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/hall_btn_list_item"
+                    android:clickable="true"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:paddingBottom="2dp"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:paddingTop="2dp">
+
+                    <ImageView
+                        android:layout_width="60dip"
+                        android:layout_height="60dip"
+                        android:src="@drawable/messagescenter_subscription" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:text="@string/string_hall_button2" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/hall_btn_list_item"
+                    android:clickable="true"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:paddingBottom="2dp"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:paddingTop="2dp">
+
+                    <ImageView
+                        android:layout_width="60dip"
+                        android:layout_height="60dip"
+                        android:src="@drawable/messagescenter_at" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:text="@string/string_hall_button3" />
+
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:id="@+id/sss"
+                android:layout_width="match_parent"
+                android:layout_height="95dip"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/hall_btn_list_item"
+                    android:clickable="true"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:paddingBottom="2dp"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:paddingTop="2dp">
+
+
+                    <ImageView
+                        android:layout_width="60dip"
+                        android:layout_height="60dip"
+                        android:src="@drawable/tabbar_compose_photo" />
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:text="@string/string_hall_button4" />
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/hall_btn_list_item"
+                    android:clickable="true"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:paddingBottom="2dp"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:paddingTop="2dp">
+
+                    <ImageView
+
+                        android:layout_width="60dip"
+                        android:layout_height="60dip"
+                        android:src="@drawable/tabbar_compose_wbcamera" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:text="@string/string_hall_button5" />
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/zhiding_plan"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/hall_btn_list_item"
+                    android:clickable="true"
+                    android:gravity="center"
+
+                    android:orientation="vertical"
+                    android:paddingBottom="2dp"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:paddingTop="2dp">
+
+                    <ImageView
+                        android:layout_width="60dip"
+                        android:layout_height="60dip"
+                        android:src="@drawable/messagescenter_good" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:text="@string/string_hall_button6"  />
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <Button
+                    android:id="@+id/buttonPanel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:text="xxxx" />
+
+                <EditText
+                    android:id="@+id/sendDataToLanya"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="ok"
+                    android:layout_marginLeft="30dip"
+                    />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="60dip"
+                    android:text="Dddddd"
+                    android:layout_marginLeft="30dip"
+                    android:id="@+id/revicesMainText"/>
+            </LinearLayout>
+
+
+
+        </LinearLayout>
+
+    </ScrollView>
+</RelativeLayout>

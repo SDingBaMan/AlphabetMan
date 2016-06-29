@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_marginTop="5dip"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:padding="8dip"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/tv_black_number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dip"
+            android:layout_marginTop="3dip"
+            android:text=" 设置天数 (天) ： "
+            android:textColor="#000000"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/set_data_day"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/tv_black_number"
+            android:layout_toRightOf="@+id/tv_black_number"
+            android:text="4"
+            android:layout_marginLeft="10dip"
+            android:textColor="#000000"
+            android:textSize="20sp" />
+
+
+        <TextView
+            android:id="@+id/tv_block_mode"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_black_number"
+            android:layout_marginLeft="10dip"
+            android:layout_marginTop="3dip"
+            android:text=" 设置每天吸烟数量 ( 根 ) : "
+            android:textColor="#88000000"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/set_data_YanNumber"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/tv_block_mode"
+            android:layout_marginLeft="10dip"
+            android:layout_toRightOf="@+id/tv_block_mode"
+            android:text="6"
+            android:textColor="#88000000"
+            android:textSize="15sp" />
+
+        <ImageView
+            android:id="@+id/iv_delete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="3dip"
+            android:src="@drawable/delete_selector" />
+
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="3.0dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="1dp"
+        android:background="#dadada"
+        android:padding="1dp" />
+</LinearLayout>

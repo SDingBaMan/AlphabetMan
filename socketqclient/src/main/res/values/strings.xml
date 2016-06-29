@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">SocketQclient</string>
+    <string name="username" >用户名：</string>
+    <string name="ip" >服务器IP：</string>
+    <string name="login" >进入</string>
+    <string name="leave" >退出</string>
+    <string name="send" >发送：</string>
+
+</resources>

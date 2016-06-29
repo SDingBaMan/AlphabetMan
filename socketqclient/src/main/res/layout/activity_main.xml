@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    tools:context="com.sdingba.su.socketqclient.MainActivity">
+
+    <TextView
+        android:id="@+id/usernameText"
+        android:layout_width="100dip"
+        android:layout_height="40dip"
+        android:gravity="center"
+        android:text="@string/username" />
+
+    <EditText
+        android:id="@+id/username"
+        android:layout_width="180dip"
+        android:layout_height="40dip"
+        android:layout_toRightOf="@+id/usernameText"
+        android:maxLength="10"
+        android:text=" " />
+
+    <Button
+        android:id="@+id/LoginButton"
+        android:layout_width="wrap_content"
+        android:layout_height="40dip"
+        android:layout_toRightOf="@+id/username"
+        android:text="@string/login" />
+
+
+    <TextView
+        android:id="@+id/ipText"
+        android:layout_width="100dip"
+        android:layout_height="40dip"
+        android:layout_below="@+id/username"
+        android:gravity="center"
+        android:text="@string/ip" />
+
+    <EditText
+        android:id="@+id/ip"
+        android:layout_width="180dip"
+        android:layout_height="40dip"
+        android:layout_alignTop="@+id/ipText"
+        android:layout_toRightOf="@+id/ipText"
+
+        android:text="10.10.39.11" />
+
+    <Button
+        android:id="@+id/leaveButton"
+        android:layout_width="wrap_content"
+        android:layout_height="40dip"
+        android:layout_alignTop="@id/ip"
+        android:layout_toRightOf="@+id/ip"
+        android:text="@string/leave" />
+
+    <EditText
+        android:id="@+id/history"
+        android:layout_width="fill_parent"
+        android:layout_height="360dip"
+        android:layout_below="@+id/ipText"
+        android:editable="false"
+
+        android:gravity="top" />
+
+    <EditText
+        android:layout_width="250dip"
+        android:layout_height="40dip"
+        android:layout_below="@id/history"
+        android:gravity="top"
+        android:id="@+id/message"
+
+        />
+    <Button
+        android:layout_width="wrap_content"
+        android:text="@string/send"
+        android:layout_toRightOf="@+id/message"
+        android:layout_alignTop="@id/message"
+        android:id="@+id/SendButton"
+
+        android:layout_height="40dip" />
+
+</RelativeLayout>

@@ -1,0 +1,91 @@
+<resources>
+    <string name="app_name">alphabet_demoTest</string>
+    <string name="is_positive">确定</string>
+
+    <!--  退出的 view  -->
+    <string name="logout">退出登录</string>
+    <!--<string name="cancel">取消</string>-->
+    <string name="logout_hint">退出后不会删除任何历史数据，下次登录依然可以使用本账号</string>
+
+    <!--  主界面的下面标题  bottom  -->
+    <string name="hall_Main">主页</string>
+    <string name="friend_main">烟友</string>
+    <string name="share_main">分享</string>
+    <string name="setting_main">个人</string>
+    <!-- 88888888888888888888888888888888888888888 -->
+
+
+    <!-- settings 的 字符串 函数 -->
+    <string name="settings_one_liuyan">留言板</string>
+
+    <string name="settings_one">作者介绍</string>
+    <string name="settings_two">修改昵称</string>
+    <string name="seettings_three">修改密码</string>
+    <string name="settings_fort">修改邮箱</string>
+
+    <string name="setting_two">了解产品</string>
+    <string name="settings_two_w">当前版本</string>
+    <string name="setting_theree">留言建议</string>
+
+    <!--  Hall  Fragment  -->
+    <string name="string_hall_button1">数据同步</string>
+    <string name="string_hall_button2">设置蓝牙</string>
+    <string name="string_hall_button3">分析报告</string>
+    <string name="string_hall_button4">线性图解</string>
+    <string name="string_hall_button5">显示数据</string>
+    <string name="string_hall_button6">制定计划</string>
+    <string name="string_hall_shengyu">今日剩余数量 :</string>
+    <string name="string_hall_shuliang">今日吸烟数量 :</string>
+    <string name="string_hall_zongAll">吸烟总数 :</string>
+    <string name="friend_search">请输入查询的人名</string>
+
+
+    <!-- 8888888888  lanya  8888888888888888888888888888 -->
+
+    <string name="device">Device:</string>
+    <string name="no_device">&lt;Select a device&gt;</string>
+    <string name="select_device">Select a device</string>
+    <string name="status">Status</string>
+    <string name="llsWrite">LinkLossAlert</string>
+    <string name="iasWrite">ImmediateAlert</string>
+    <string name="scanning">Scanning for devices...</string>
+    <string name="no_ble_devices">No LE devices found.</string>
+    <string name="connected">Connected</string>
+    <string name="disconnected">Not connected</string>
+    <string name="ready">Ready</string>
+    <string name="disconnect">Disconnect</string>
+    <string name="connect">connect</string>
+    <string name="unpair">unpair</string>
+    <string name="pair">pair</string>
+    <string name="RadioButton1">Alert level high</string>
+    <string name="RadioButton2">Alert level mid</string>
+    <string name="RadioButton3">Stop alerting</string>
+    <string name="SystemId">SystemId</string>
+    <string name="ModelNumber">ModelNumber</string>
+    <string name="SerialNumber">SerialNumber</string>
+    <string name="FirmwareRevision">FirmwareRevision</string>
+    <string name="HardwareRevision">HardwareRevision</string>
+    <string name="SoftwareRevision">SoftwareRevision</string>
+    <string name="ManufactureName">ManufactureName</string>
+    <string name="RegCertDataList">RegCertDataList</string>
+    <string name="ManufactureId">    ManufactureId</string>
+    <string name="BatteryLevel">    Battery Level</string>
+    <string name="OrgId">    OrganizationId</string>
+    <string name="Txpower">    Txpower Level</string>
+    <string name="Noupdate">    No Update</string>
+    <string name="ReadTxPower">ReadTxPower</string>
+    <string name="high_alert">HIGH Alert triggered!</string>
+    <string name="low_alert">LOW Alert triggered!</string>
+    <string name="writeTxnoti">TxNoti</string>
+    <string name="readRssi">Read Rssi Value</string>
+    <string name="Readdummy">D Read</string>
+    <string name="removeBond">Remove Bond</string>
+    <string name="paired">paired</string>
+    <string name="popup_title">Quit nRF UART?</string>
+    <string name="popup_message">Do you want to quit this Application?</string>
+    <string name="popup_yes">YES</string>
+    <string name="popup_no">NO</string>
+    <string name="ble_not_supported">Bluetooth Low Energy not supported</string>
+    <string name="scan">Scan</string>
+    <string name="cancel">Cancel</string>
+</resources>

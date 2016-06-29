@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/linear_set"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:id="@+id/title"
+            android:layout_width="fill_parent"
+            android:layout_height="60dp"
+
+            android:background="#111211">
+
+            <TextView
+                android:id="@+id/setData_goMain"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_centerInParent="true"
+                android:background="@drawable/selector_head_back"
+                android:clickable="true"
+                android:gravity="center"
+                android:text="返 回"
+                android:textColor="#ffebebeb"
+                android:textSize="15sp"
+                android:textStyle="bold" />
+
+            <TextView
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="制定计划"
+                android:textColor="#ffffff"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/add_setData"
+                android:layout_width="55dp"
+                android:layout_height="35dip"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginBottom="8dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/selector_off_or_on"
+                android:text="添加"
+                android:textColor="#fff"
+                android:textSize="16sp" />
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#9292e2">
+
+            <TextView
+                android:id="@+id/setdatanewday"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="5dip"
+                android:text="    设置开始时间为 ： "
+                android:textSize="20dip"
+                android:textStyle="bold" />
+
+
+        </LinearLayout>
+
+        <ListView
+            android:id="@+id/set_data_scoloer"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"></ListView>
+
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/simbut_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/linear_set"
+        android:background="@drawable/selector_off_or_on"
+        android:text="提 交 设 置 数 据"
+        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="15dip"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="8dp"
+        android:textSize="20dip" />
+
+
+</RelativeLayout>

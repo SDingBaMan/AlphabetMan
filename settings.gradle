@@ -1,0 +1,1 @@
+include ':app', ':tables', ':MPChartLib', ':lanya', ':alphabet_beta1', ':wenshidu', ':alphabet_demotest', ':weixinshare', ':socketqclient'

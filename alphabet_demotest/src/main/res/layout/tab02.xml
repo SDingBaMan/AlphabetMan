@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <!--<TextView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:text="xxxx"-->
+        <!--android:textSize="100dip"/>-->
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/home_search2"
+        android:gravity="center" >
+
+        <EditText
+            android:id="@+id/home_et_search"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="38dp"
+            android:layout_marginRight="68dp"
+            android:background="@android:color/transparent"
+            android:ems="20"
+            android:hint="@string/friend_search" >
+        </EditText>
+
+        <TextView
+            android:id="@+id/home_et_search_button"
+            android:layout_width="58dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignTop="@+id/home_et_search"
+            android:clickable="true" />
+
+    </RelativeLayout>
+
+    <ListView
+        android:id="@+id/friend_list"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:listSelector="@drawable/selector_home_item" >
+    </ListView>
+
+</LinearLayout>
