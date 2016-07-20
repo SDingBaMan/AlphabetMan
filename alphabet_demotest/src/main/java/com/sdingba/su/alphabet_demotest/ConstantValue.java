@@ -10,14 +10,16 @@ public interface ConstantValue {
      * socket的服务器；IP地址；
      * 10.0.2.2
      */
-    String SOCKET_IP = "172.17.210.5";// TODO: 16-6-28 改
+//    String SOCKET_IP = "10.10.39.11";// TODO: 16-6-28 改
+    String SOCKET_IP = "172.16.178.3";// TODO: 16-6-28 改
 
     /**
+     *
      * 服务器  ip  一
      * 10.0.2.2
      */
-    String WEB_URL_CONSTANT = "172.17.210.5:8080";//创新501 // TODO: 16-6-28 改
-//    String WEB_URL_CONSTANT = "172.16.148.7:8080";// linshi
+//    String WEB_URL_CONSTANT = "10.10.39.11:8080";//创新501 // TODO: 16-6-28 改
+    String WEB_URL_CONSTANT = "172.16.178.3:8080";// linshi
 
     /**
      * 服务器  ip  二
@@ -35,7 +37,6 @@ public interface ConstantValue {
      * 用于 新闻 的处理事件的url
      */
     String NEWS_LISTVIEW_ITEM = WEB_URL + "/new.xml";
-
 
 
     /**
@@ -68,7 +69,6 @@ public interface ConstantValue {
      * 获取 设置数据，
      */
     String getServierSetDataPlan = WEB_URL + "/ReturnSetDateYan";
-
 
 
 }

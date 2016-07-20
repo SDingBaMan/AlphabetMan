@@ -96,8 +96,7 @@ public class RadarChartActivitry extends DemoBase {
     };
 
     private String[] mPartiesday= new String[]{
-            "Day01", "Day02", "Day03", "Day04", "Day05", "Day06",
-            "Day07"
+            "第一天", "第二天", "第三天", "第四天", "第五天", "第六天", "第七天"
     };
 
     public void setData() {
@@ -113,12 +112,12 @@ public class RadarChartActivitry extends DemoBase {
         // xIndex (even if from different DataSets), since no values can be
         // drawn above each other.
         for (int i = 0; i < cnt; i++) {
-//            yVals1.add(new Entry((float) (Math.random() * mult) + mult / 2, i));
+//          yVals1.add(new Entry((float) (Math.random() * mult) + mult / 2, i));
             yVals1.add(new Entry((float) i*2+3, i));
         }
 
         for (int i = 0; i < cnt; i++) {
-//            yVals2.add(new Entry((float) (Math.random() * mult) + mult / 2, i));
+//          yVals2.add(new Entry((float) (Math.random() * mult) + mult / 2, i));
             yVals2.add(new Entry((float) i*3+2, i));
 
         }
@@ -136,18 +135,18 @@ public class RadarChartActivitry extends DemoBase {
         for (int i = 0; i < cnt; i++)
             xVals.add(mPartiesday[i % mPartiesday.length]);
 
-        RadarDataSet set1 = new RadarDataSet(yVals1, "Set 1");
+        RadarDataSet set1 = new RadarDataSet(yVals1, "个人数据");
         set1.setColor(ColorTemplate.VORDIPLOM_COLORS[0]);
         set1.setFillColor(ColorTemplate.VORDIPLOM_COLORS[0]);
         set1.setDrawFilled(true);
-        set1.setLineWidth(2f);
+        set1.setLineWidth(3f);
 
-        RadarDataSet set2 = new RadarDataSet(yVals2, "Set 2");
+        RadarDataSet set2 = new RadarDataSet(yVals2, "整体数据");
         set2.setColor(ColorTemplate.VORDIPLOM_COLORS[4]);
         set2.setFillColor(ColorTemplate.VORDIPLOM_COLORS[4]);
         set2.setDrawFilled(true);
-//        set2.setValueTextSize(18f);
-        set2.setLineWidth(2f);
+        set2.setValueTextSize(38f);
+        set2.setLineWidth(3f);
 
 //        RadarDataSet set3 = new RadarDataSet(yVals3, "Set xxxxxx");
 //        set3.setColor(ColorTemplate.VORDIPLOM_COLORS[3]);

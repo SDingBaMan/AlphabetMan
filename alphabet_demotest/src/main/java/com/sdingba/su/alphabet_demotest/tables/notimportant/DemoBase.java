@@ -28,7 +28,7 @@ public abstract class DemoBase extends FragmentActivity {
 
 
     protected String[] mParties2 = new String[] {
-            "day 01", "day 02", "day 03", "day 04", "day 05", "day 06", "Party G", "Party H",
+            "第一天", "第二天", "第三天", "第四天", "第五天", "第六天", "第七天", "Party H",
             "Party I", "Party J", "Party K", "Party L", "Party M", "Party N", "Party O", "Party P",
             "Party Q", "Party R", "Party S", "Party T", "Party U", "Party V", "Party W", "Party X",
             "Party Y", "Party Z"

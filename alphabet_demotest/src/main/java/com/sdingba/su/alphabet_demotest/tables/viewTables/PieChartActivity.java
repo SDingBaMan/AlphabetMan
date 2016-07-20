@@ -71,8 +71,8 @@ public class PieChartActivity extends DemoBase
 
         mSeekBarY.setProgress(10);
 
-        mSeekBarX.setOnSeekBarChangeListener(this);
-        mSeekBarY.setOnSeekBarChangeListener(this);
+//        mSeekBarX.setOnSeekBarChangeListener(this);
+//        mSeekBarY.setOnSeekBarChangeListener(this);
 
         mChart = (PieChart) findViewById(R.id.chart1);
         mChart.setUsePercentValues(true);
@@ -110,10 +110,16 @@ public class PieChartActivity extends DemoBase
 
         setData(7, 100);
 
-        tvX.setText("" + (3 + 1));
-        tvY.setText("" + (100));
+//        tvX.setText("" + (3 + 1));
+//        tvY.setText("" + (100));
+        tvX.setText("");
+        tvY.setText("");
+
+
         mSeekBarX.setProgress(6);
         mSeekBarY.setProgress(10);
+        mSeekBarX.setVisibility(View.INVISIBLE);
+        mSeekBarY.setVisibility(View.INVISIBLE);
 
         mChart.animateY(1400, Easing.EasingOption.EaseInOutQuad);
         // mChart.spin(2000, 0, 360);
@@ -196,7 +202,8 @@ public class PieChartActivity extends DemoBase
         tvY.setText("" + (mSeekBarY.getProgress()));
         Log.i(TAG,"xxxxxxxxxxxxxxxxxxx" + mSeekBarX.getProgress());
         Log.i(TAG,"xxxxxxxxxxxxxxxxxxx" + mSeekBarY.getProgress());
-        setData(mSeekBarX.getProgress(), mSeekBarY.getProgress());
+//        setData(mSeekBarX.getProgress(), mSeekBarY.getProgress());
+        setData(7, 10);
     }
 
     private void setData(int count, float range) {
@@ -209,7 +216,8 @@ public class PieChartActivity extends DemoBase
         // xIndex (even if from different DataSets), since no values can be
         // drawn above each other.
         for (int i = 0; i < count + 1; i++) {
-            
+
+            // TODO: 16-7-20  添加数据的函数。
             yVals1.add(new Entry((float) (Math.random() * mult) + mult / 5, i));
 //            yVals1.add(new Entry((float) i+1, i));
             Log.i(TAG, "sssssssssssssssss" + (Math.random() * mult) + mult / 5);
@@ -222,7 +230,7 @@ public class PieChartActivity extends DemoBase
             xVals.add(mParties2[i % mParties2.length]);
 
         //添加的vertical的  显示。
-        PieDataSet dataSet = new PieDataSet(yVals1, "Time View");
+        PieDataSet dataSet = new PieDataSet(yVals1, "  时间显示");
         dataSet.setSliceSpace(3f);
         dataSet.setSelectionShift(5f);
 
