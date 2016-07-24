@@ -31,6 +31,10 @@ public class dataTimeUtils {
         pref = context.getSharedPreferences(SharPredInter.SHAR_TABLE_NAME, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = pref.edit();
 
+
+
+
+
         String lastSc = pref.getString(SharPredInter.Last_Schedule_table, "");
         if (lastSc.equals("")) {
             return "error";
@@ -47,6 +51,7 @@ public class dataTimeUtils {
             // TODO: 16-6-23 修改  值
             String[] dataL = list[0].split("\\:");
             editor.putString(SharPredInter.LAST_SECTION_DAY, dataL[0]);
+            // TODO: 16-7-23
             editor.putString(SharPredInter.SECTION_Yan_Num, dataL[1]);
             editor.putString(SharPredInter.Last_Schedule_table, lastDateSc.toString());
 //            editor.putString(SharPredInter.NEW_day_xiYan, "0");
@@ -137,8 +142,9 @@ public class dataTimeUtils {
             editor.putString(SharPredInter.Schedule_table, anPaibiao.toString());
             editor.putString(SharPredInter.Last_Schedule_table, anPaibiao.toString());
             editor.putString(SharPredInter.SECTION_Yan_Num, NumYan);
+            editor.putString(SharPredInter.ZUIHOU_Yan_Num, NumYan);
             editor.putString(SharPredInter.NEW_day_xiYan, "0");
-            editor.putString(SharPredInter.All_Yan_NUMBER, "0");
+            editor.putString(SharPredInter.All_Yan_NUMBER, "33");
             editor.putString(SharPredInter.OrigendDateNumber, scheel);
             editor.putBoolean(SharPredInter.isBooleOk, true);
 
@@ -147,5 +153,19 @@ public class dataTimeUtils {
             e.printStackTrace();
             System.out.println("cccc");
         }
+    }
+
+
+    /**
+     * 返回 今天的 时间
+     *
+     * @return string
+     */
+    public static String getNewDayTime() {
+
+
+        SimpleDateFormat df = new SimpleDateFormat("yyyyMMdd");//设置日期格式
+        String newDay = df.format(new Date());
+        return newDay;
     }
 }

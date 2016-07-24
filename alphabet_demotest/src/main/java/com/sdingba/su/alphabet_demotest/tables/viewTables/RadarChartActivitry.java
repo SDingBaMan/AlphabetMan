@@ -1,6 +1,7 @@
 
 package com.sdingba.su.alphabet_demotest.tables.viewTables;
 
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.View;
@@ -66,7 +67,39 @@ public class RadarChartActivitry extends DemoBase {
         // set the marker to the chart
         mChart.setMarkerView(mv);
 
-        setData();
+
+        addTable();
+    }
+
+    
+    private void addTable() {
+
+        int cnt = 7;
+
+        ArrayList<Entry> yVals1 = new ArrayList<Entry>();
+        ArrayList<Entry> yVals2 = new ArrayList<Entry>();
+//        ArrayList<Entry> yVals3 = new ArrayList<Entry>();
+
+        // IMPORTANT: In a PieChart, no values (Entry) should have the same
+        // xIndex (even if from different DataSets), since no values can be
+        // drawn above each other.
+        for (int i = 0; i < cnt; i++) {
+//          yVals1.add(new Entry((float) (Math.random() * mult) + mult / 2, i));
+            if (i % 2==1) {
+                yVals1.add(new Entry((float) 13, i));
+            }else{
+                yVals1.add(new Entry((float) 10, i));
+            }
+        }
+
+        for (int i = 0; i < cnt; i++) {
+//          yVals2.add(new Entry((float) (Math.random() * mult) + mult / 2, i));
+
+            yVals2.add(new Entry((float) i*2+3, i));
+
+        }
+
+        setData(yVals1,yVals2);
 
         mChart.animateXY(
                 1400, 1400,
@@ -99,12 +132,12 @@ public class RadarChartActivitry extends DemoBase {
             "第一天", "第二天", "第三天", "第四天", "第五天", "第六天", "第七天"
     };
 
-    public void setData() {
+    public void setData(ArrayList<Entry> yVals1, ArrayList<Entry> yVals2) {
 
         float mult = 150;
         int cnt = 7;
 
-        ArrayList<Entry> yVals1 = new ArrayList<Entry>();
+        /*ArrayList<Entry> yVals1 = new ArrayList<Entry>();
         ArrayList<Entry> yVals2 = new ArrayList<Entry>();
 //        ArrayList<Entry> yVals3 = new ArrayList<Entry>();
 
@@ -113,14 +146,19 @@ public class RadarChartActivitry extends DemoBase {
         // drawn above each other.
         for (int i = 0; i < cnt; i++) {
 //          yVals1.add(new Entry((float) (Math.random() * mult) + mult / 2, i));
-            yVals1.add(new Entry((float) i*2+3, i));
+            if (i % 2==1) {
+                yVals1.add(new Entry((float) 13, i));
+            }else{
+                yVals1.add(new Entry((float) 10, i));
+            }
         }
 
         for (int i = 0; i < cnt; i++) {
 //          yVals2.add(new Entry((float) (Math.random() * mult) + mult / 2, i));
-            yVals2.add(new Entry((float) i*3+2, i));
 
-        }
+            yVals2.add(new Entry((float) i*2+3, i));
+
+        }*/
 
 //        for (int i = 0; i < cnt; i++) {
 ////            yVals3.add(new Entry((float) (Math.random() * mult) + mult / 2, i));
@@ -135,18 +173,22 @@ public class RadarChartActivitry extends DemoBase {
         for (int i = 0; i < cnt; i++)
             xVals.add(mPartiesday[i % mPartiesday.length]);
 
-        RadarDataSet set1 = new RadarDataSet(yVals1, "个人数据");
+        RadarDataSet set1 = new RadarDataSet(yVals1, "整体数据");
         set1.setColor(ColorTemplate.VORDIPLOM_COLORS[0]);
         set1.setFillColor(ColorTemplate.VORDIPLOM_COLORS[0]);
-        set1.setDrawFilled(true);
-        set1.setLineWidth(3f);
 
-        RadarDataSet set2 = new RadarDataSet(yVals2, "整体数据");
+        set1.setValueTextSize(38f);
+        set1.setLineWidth(7f);
+        set1.setDrawFilled(true);
+
+
+        RadarDataSet set2 = new RadarDataSet(yVals2, "个人数据");
         set2.setColor(ColorTemplate.VORDIPLOM_COLORS[4]);
         set2.setFillColor(ColorTemplate.VORDIPLOM_COLORS[4]);
-        set2.setDrawFilled(true);
+
         set2.setValueTextSize(38f);
         set2.setLineWidth(3f);
+        set2.setDrawFilled(true);
 
 //        RadarDataSet set3 = new RadarDataSet(yVals3, "Set xxxxxx");
 //        set3.setColor(ColorTemplate.VORDIPLOM_COLORS[3]);
@@ -163,8 +205,9 @@ public class RadarChartActivitry extends DemoBase {
 
         RadarData data = new RadarData(xVals, sets);
         data.setValueTypeface(tf);
-        data.setValueTextSize(8f);
+        data.setValueTextSize(2f);
 //        data.setValueTextSize(20f);
+
         data.setDrawValues(false);
 
         mChart.setData(data);

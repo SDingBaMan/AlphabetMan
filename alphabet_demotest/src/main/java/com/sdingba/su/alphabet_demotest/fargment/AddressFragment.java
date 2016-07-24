@@ -21,11 +21,13 @@ import com.sdingba.su.alphabet_demotest.tables.viewTables.PieChartActivity;
 import com.sdingba.su.alphabet_demotest.tables.viewTables.RadarChartActivitry;
 import com.sdingba.su.alphabet_demotest.utils.PromptManager;
 import com.sdingba.su.alphabet_demotest.view.newsActivity;
+import com.sdingba.su.alphabet_demotest.view.pengyouquan;
 
 public class AddressFragment extends Fragment implements View.OnClickListener {
 
     private RelativeLayout yuanxing, zhuxing, multi_zhuxing, realmAC;
     private RelativeLayout New_Viewpager;
+    private RelativeLayout share_all_person;
 
 
     @Override
@@ -44,8 +46,9 @@ public class AddressFragment extends Fragment implements View.OnClickListener {
         multi_zhuxing = (RelativeLayout) view.findViewById(R.id.multi_zhuxing);
         realmAC = (RelativeLayout) view.findViewById(R.id.xianxing_tables);
         New_Viewpager = (RelativeLayout) view.findViewById(R.id.new_list_view);
+        share_all_person = (RelativeLayout) view.findViewById(R.id.share_all_person);
 
-
+        share_all_person.setOnClickListener(this);
         yuanxing.setOnClickListener(this);
         zhuxing.setOnClickListener(this);
         multi_zhuxing.setOnClickListener(this);
@@ -129,6 +132,12 @@ public class AddressFragment extends Fragment implements View.OnClickListener {
                 Intent intent5 = new Intent();
                 intent5.setClass(getActivity(), newsActivity.class);
                 startActivity(intent5);
+                break;
+            case R.id.share_all_person:
+                Intent intent6 = new Intent();
+                intent6.setClass(getActivity(), pengyouquan.class);
+                startActivity(intent6);
+
                 break;
         }
     }

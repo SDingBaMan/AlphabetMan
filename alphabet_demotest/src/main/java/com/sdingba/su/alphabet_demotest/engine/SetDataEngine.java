@@ -9,7 +9,21 @@ import com.sdingba.su.alphabet_demotest.bean.senddataYanPlan;
  */
 public interface SetDataEngine {
 
+    /**
+     * 提交设置的数据。
+     * @param object
+     * @return
+     */
     public String sendServerData(senddataYanPlan object);
 
+    /**
+     * 获取设置的数据。
+     * @param username
+     * @return
+     */
     public getsetdataBean initSetDateinService(String username);
+
+
+
+
 }

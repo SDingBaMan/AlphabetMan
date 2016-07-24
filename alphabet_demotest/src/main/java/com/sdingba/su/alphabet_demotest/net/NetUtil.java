@@ -39,14 +39,14 @@ public class NetUtil {
 		}
 
 		// ③判断MOBILE是否连接
-		if (isMobile) {
-			// 如果是，判断一下是否是wap（代理的信息）
-			// wap 还是 net？看当前正在连接的去渠道的配置信息（proxy port），如果有值wap
-			readAPN(context);
-			LogUtils.Logi(TAG, "判断MOBILE是否连接,");
-			LogUtils.Logi(TAG, "4.0模拟器屏蔽掉该权限,");
-			LogUtils.Logi(TAG, "检测 是否 是 非无线联网的 事情。");
-		}
+//		if (isMobile) {
+//			// 如果是，判断一下是否是wap（代理的信息）
+//			// wap 还是 net？看当前正在连接的去渠道的配置信息（proxy port），如果有值wap
+//			readAPN(context);
+//			LogUtils.Logi(TAG, "判断MOBILE是否连接,");
+//			LogUtils.Logi(TAG, "4.0模拟器屏蔽掉该权限,");
+//			LogUtils.Logi(TAG, "检测 是否 是 非无线联网的 事情。");
+//		}
 		return true;
 	}
 

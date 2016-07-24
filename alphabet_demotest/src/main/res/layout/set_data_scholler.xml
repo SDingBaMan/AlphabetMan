@@ -5,6 +5,7 @@
     android:orientation="vertical">
 
     <LinearLayout
+
         android:id="@+id/linear_set"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -76,23 +77,65 @@
         <ListView
             android:id="@+id/set_data_scoloer"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"></ListView>
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="52dip">
+
+        </ListView>
 
 
     </LinearLayout>
 
-    <Button
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal">
+        <Button
+            android:id="@+id/morenSet"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/selector_off_or_on"
+            android:text="默认设置"
+            android:layout_marginBottom="6dp"
+            android:layout_marginLeft="8dip"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="2dp"
+            android:textSize="20dip" />
+
+
+        <Button
+            android:id="@+id/simbut_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/selector_off_or_on"
+            android:text="提 交 设 置 数 据"
+            android:layout_marginBottom="6dp"
+            android:layout_marginLeft="5dip"
+            android:layout_marginRight="8dp"
+            android:layout_marginTop="2dp"
+            android:textSize="20dip" />
+
+
+
+
+    </LinearLayout>
+
+    <!--<Button
         android:id="@+id/simbut_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/linear_set"
+
+        android:layout_alignParentBottom="true"
+
+
         android:background="@drawable/selector_off_or_on"
         android:text="提 交 设 置 数 据"
         android:layout_marginBottom="8dp"
         android:layout_marginLeft="15dip"
         android:layout_marginRight="15dp"
         android:layout_marginTop="8dp"
-        android:textSize="20dip" />
+        android:textSize="20dip" />-->
 
 
 </RelativeLayout>

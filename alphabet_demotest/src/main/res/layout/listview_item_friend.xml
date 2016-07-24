@@ -66,7 +66,7 @@
             android:layout_marginLeft="8dip"
             android:layout_toRightOf="@id/head"
             android:padding="7dp"
-            android:text="消息显示区间"
+            android:text="消息显示区x间"
             android:textColor="#666" />
 
     </RelativeLayout>

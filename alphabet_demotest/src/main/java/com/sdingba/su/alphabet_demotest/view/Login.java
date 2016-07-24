@@ -28,6 +28,8 @@ import com.sdingba.su.alphabet_demotest.utils.BeanFactory;
 import com.sdingba.su.alphabet_demotest.utils.PromptManager;
 import com.sdingba.su.alphabet_demotest.utils.dataTimeUtils;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -95,10 +97,11 @@ public class Login extends Activity {
                     protected void onPostExecute(UserMan userMan) {
                         if (userMan == null) {
 
-//                          PromptManager.showToast(Login.this,"网络崩溃,狗逼程序员加班中...");
+//
                             PromptManager.showToast(Login.this,"账号或密码错误");
 
                             isLive = false;
+
                         }  else {
 
                             //登陆成功
@@ -109,9 +112,12 @@ public class Login extends Activity {
                             editor.putString(SharPredInter.USER_NAME, "");
                             editor.putString(SharPredInter.FRIEND_LIST, "");
                             editor.putString(SharPredInter.NEW_day_xiYan, "");
-                            editor.putString(SharPredInter.All_Yan_NUMBER, "");
+                            editor.putString(SharPredInter.All_Yan_NUMBER, "33");
+
                             editor.putString(SharPredInter.Pre_ACTIVA_Time, "");
+
                             editor.putString(SharPredInter.SECTION_Yan_Num, "");
+                            editor.putString(SharPredInter.ZUIHOU_Yan_Num, "");
                             editor.putString(SharPredInter.LAST_SECTION_DAY, "");
                             editor.putString(SharPredInter.Schedule_table, "");
                             editor.putString(SharPredInter.Last_Schedule_table, "");
@@ -120,15 +126,15 @@ public class Login extends Activity {
                             editor.putString(SharPredInter.timeDaySum, "");
                             editor.putString(SharPredInter.OrigendDateNumber, "");
                             editor.putString(SharPredInter.EndTimeSchedule, "");
-                            //----------------------------------------------------------------
 
+                            editor.putString(SharPredInter.SEND_YAN_OTHER, "");
+                            //----------------------------------------------------------------
 
                             editor.putString(SharPredInter.USER_NAME, userMan.getUmId());
                             editor.commit();
                             isLive = true;
 
                             initSetData(zh);
-
 
                         }
                         Login.this.finish();
@@ -143,6 +149,7 @@ public class Login extends Activity {
     }
 
     private void initSetData(String zh) {
+
         new MyHttpAsyncTask<String, getsetdataBean>(Login.this) {
             @Override
             protected getsetdataBean doInBackground(String... params) {
@@ -167,6 +174,9 @@ public class Login extends Activity {
                     dataTimeUtils dateUtils = new dataTimeUtils(Login.this);
                     dateUtils.PullStringToDate(setDataYan.getStartTime(), setDataYan.getDataJiHua());
 
+                    SharedPreferences.Editor editor = pref.edit();
+                    editor.putString(SharPredInter.Pre_ACTIVA_Time, dataTimeUtils.getNewDayTime());
+                    editor.commit();
                 }
 
                 super.onPostExecute(setDataYan);

@@ -3,23 +3,32 @@ package com.sdingba.su.alphabet_demotest.fargment;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.ImageFormat;
+
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.sdingba.su.alphabet_demotest.ConstantValue;
+
 import com.sdingba.su.alphabet_demotest.R;
 import com.sdingba.su.alphabet_demotest.SharPredInter;
+import com.sdingba.su.alphabet_demotest.bean.Netbean.sendNumber;
+
+import com.sdingba.su.alphabet_demotest.engine.Impl.sendNumberEngineImpl;
+import com.sdingba.su.alphabet_demotest.engine.sendNumberEngine;
+import com.sdingba.su.alphabet_demotest.net.MyHttpAsyncTask;
 import com.sdingba.su.alphabet_demotest.utils.ChineseCharToEn;
+import com.sdingba.su.alphabet_demotest.utils.PromptManager;
 import com.sdingba.su.alphabet_demotest.view.socket.ChatActivity;
 
 public class FrdFragment extends Fragment {
@@ -41,6 +50,13 @@ public class FrdFragment extends Fragment {
             R.drawable.skin5,
             R.drawable.skin5,
     };
+
+
+    // alter
+    private Button bt_ok;
+    private TextView et_setdatadayx;
+    private EditText et_setyannumber;
+    private Button bt_cancel;
 
 
     private String[] name_item;
@@ -70,11 +86,14 @@ public class FrdFragment extends Fragment {
     public View onCreateView(final LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.tab02, container, false);
+
+
+
         freind_list = (ListView) view.findViewById(R.id.friend_list);
         initFriend();
 
-
         freind_list.setAdapter(new FriendListItem());
+
         freind_list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -87,12 +106,116 @@ public class FrdFragment extends Fragment {
 
             }
         });
+
+        freind_list.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long id) {
+
+                final String userId = context_item[position];
+                final String userMyId = pref.getString(SharPredInter.USER_NAME, "");
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                final AlertDialog dialog = builder.create();
+                View contenView = View.inflate(getActivity(), R.layout.sendalter, null);
+
+                et_setdatadayx = (TextView) contenView.findViewById(R.id.et_setUserId);
+                et_setyannumber = (EditText) contenView.findViewById(R.id.et_setyannumber);
+                bt_cancel = (Button) contenView.findViewById(R.id.cancel);
+                bt_ok = (Button) contenView.findViewById(R.id.ok);
+
+                et_setdatadayx.setText("赠送用户： "+userId);
+
+                dialog.setView(contenView, 0, 0, 0, 0);
+                dialog.show();
+                bt_ok.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        //获取  2 个文本信息 的 值
+
+                        final String yansetnumber = et_setyannumber.getText().toString();
+                        String numberYan = pref.getString(SharPredInter.SEND_YAN_OTHER, "");
+                         if (!numberYan.equals("")) {
+                             if (Integer.valueOf(numberYan) > 0) {
+                                 PromptManager.showToast(getActivity(), "今日赠送结束");
+                                 return;
+                             }
+                        }
+
+                        if (yansetnumber.equals("")) {
+                            PromptManager.showToast(getActivity(), "数 据 不 能 为 空");
+                        } else if (Integer.valueOf(yansetnumber) > 3) {
+                            PromptManager.showToast(getActivity(), "不能超过3根...");
+                        } else {
+                            //发送给 web
+
+                            sendNumber send = new sendNumber();
+                            send.setSendId(userMyId);
+                            send.setReciveId(userId);
+                            send.setUumber(Integer.valueOf(yansetnumber));
+                            new MyHttpAsyncTask<sendNumber, String>(getActivity()) {
+                                @Override
+                                protected void onPreExecute() {
+                                    super.onPreExecute();
+                                }
+
+                                @Override
+                                protected String doInBackground(sendNumber... params) {
+                                    sendNumber send = params[0];
+                                    sendNumberEngine engine = new sendNumberEngineImpl();
+                                    return engine.setSendYanNumber(send);
+                                }
+
+                                @Override
+                                protected void onPostExecute(String s) {
+                                    String ss = s;
+                                    if (ss == null || ss.equals("ErrorSetsendNumber")) {
+                                        PromptManager.showToast(getActivity(), "设置失败..." + ss);
+
+                                    } else if (ss.equals("OkSetsendNumber")) {
+
+                                        SharedPreferences.Editor editor = pref.edit();
+                                        editor.putString(SharPredInter.SEND_YAN_OTHER, yansetnumber);
+                                        editor.commit();
+                                        PromptManager.showToast(getActivity(), "设置成功...");
+                                    }
+
+                                    dialog.dismiss();
+
+
+                                    super.onPostExecute(s);
+                                }
+                            }.executeProxy(send);
+                        }
+
+
+
+
+
+
+                    }
+                });
+                bt_cancel.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialog.dismiss();
+
+                    }
+                });
+
+
+                return true;
+            }
+
+        });
+//
+
         return view;
     }
 
     private void initFriend() {
         pref = getActivity().getSharedPreferences(SharPredInter.SHAR_TABLE_NAME, Context.MODE_PRIVATE);
         String friendListStr = pref.getString(SharPredInter.FRIEND_LIST, "");
+
         if (!friendListStr.equals("")) {
             System.out.println("lllllll   " + friendListStr);
 
@@ -202,17 +325,17 @@ public class FrdFragment extends Fragment {
             hodler.friend_name_first.setText(
                     new ChineseCharToEn().getFirstLetter(name_first_char).toUpperCase());
 
-            hodler.imageViewLogo.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (position == 0) {
-                        Intent intent = new Intent();
-                        intent.setClass(getActivity(), ChatActivity.class);
-                        startActivity(intent);
-
-                    }
-                }
-            });
+//            hodler.imageViewLogo.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    if (position == 0) {
+//                        Intent intent = new Intent();
+//                        intent.setClass(getActivity(), ChatActivity.class);
+//                        startActivity(intent);
+//
+//                    }
+//                }
+//            });
             return convertView;
         }
     }

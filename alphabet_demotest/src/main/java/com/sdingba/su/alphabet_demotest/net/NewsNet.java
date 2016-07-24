@@ -67,6 +67,87 @@ public class NewsNet {
     }
 
 
+    /**
+     * 返回 戒烟的 数据
+     * @return
+     */
+    public List<NewInfo> getJieYanFromInternet() {
+        HttpClient client = null;
+
+        try {
+            client = new DefaultHttpClient();
+            HttpGet get = new HttpGet(
+                    ConstantValue.JIEYAN_LISTVIEW_ITEM);
+            HttpResponse response = client.execute(get);
+            int statusCode = response.getStatusLine().getStatusCode();
+
+            if (statusCode == 200) {
+
+                InputStream is = response.getEntity().getContent();
+                List<NewInfo> newInfoList = getNewListFromInputStream(is);
+
+                Log.i(TAG, "chengg" + statusCode);
+                return newInfoList;
+            } else {
+                Log.i(TAG, "访问失败" + statusCode);
+            }
+
+
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (XmlPullParserException e) {
+            e.printStackTrace();
+        } finally {
+            if (client != null) {
+                client.getConnectionManager().shutdown();
+            }
+
+        }
+        return null;
+    }
+
+    /**
+     * 返回 戒烟的 数据
+     * @return
+     */
+    public List<NewInfo> getQitaFromInternet() {
+        HttpClient client = null;
+
+        try {
+            client = new DefaultHttpClient();
+            HttpGet get = new HttpGet(
+                    ConstantValue.QITA_LISTVIEW_ITEM);
+            HttpResponse response = client.execute(get);
+            int statusCode = response.getStatusLine().getStatusCode();
+
+            if (statusCode == 200) {
+
+                InputStream is = response.getEntity().getContent();
+                List<NewInfo> newInfoList = getNewListFromInputStream(is);
+
+                Log.i(TAG, "chengg" + statusCode);
+                return newInfoList;
+            } else {
+                Log.i(TAG, "访问失败" + statusCode);
+            }
+
+
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (XmlPullParserException e) {
+            e.printStackTrace();
+        } finally {
+            if (client != null) {
+                client.getConnectionManager().shutdown();
+            }
+
+        }
+        return null;
+    }
+
+
     public List<NewInfo> getNewListFromInputStream(InputStream is) throws XmlPullParserException, IOException {
         // 1 ，获取XmlPullParser
        /*

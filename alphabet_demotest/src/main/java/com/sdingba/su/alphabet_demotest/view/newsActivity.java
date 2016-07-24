@@ -72,7 +72,21 @@ public class newsActivity extends AppCompatActivity {
     };
 
 
+    /**
+     * 戒烟 新闻 的 listView
+     */
     private ListView news_xiyan;
+
+    /**
+     * 吸烟危害 的 listView
+     */
+    private ListView xiYan_weihai;
+
+    /**
+     * 吸烟危害 的 listView
+     */
+    private ListView qitaData;
+
     //    private NewsListAdapter adapterNews;
     private List<NewInfo> list_news_item;
 
@@ -116,11 +130,15 @@ public class newsActivity extends AppCompatActivity {
      */
     private void initView() {
         news_xiyan = new ListView(this);
+        xiYan_weihai = new ListView(this);
+        qitaData = new ListView(this);
+
+
+
 //        adapterNews = new NewsListAdapter();
 
         list_news_item = new ArrayList<NewInfo>();
 
-        final NewsNet newsNet = new NewsNet();
 
 //        //抓取新闻数据
 //        new Thread() {
@@ -147,7 +165,28 @@ public class newsActivity extends AppCompatActivity {
 //            }
 //        }.start();
 
-        new MyHttpAsyncTask<String, List<NewInfo>>(this) {
+        newsList();
+
+
+        //对于  listView item的点击事件。
+        news_xiyan.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                PromptManager.showToastTest(newsActivity.this, "点击了" + position);
+            }
+        });
+
+//        news_xiyan.setAdapter(adapterNews);  //
+//        news_xiyan.setFadingEdgeLength(0);// 删除黑边（上下）
+    }
+
+    /**
+     * 对  新闻 的 listView填充数据
+     */
+    private void newsList() {
+        final NewsNet newsNet = new NewsNet();
+        new MyHttpAsyncTask<String, List<NewInfo>>(newsActivity.this) {
 
 
             @Override
@@ -162,6 +201,7 @@ public class newsActivity extends AppCompatActivity {
                     list_news_item = newInfos;
 //                  LogUtils.Logi("AnyscTask","xxxxx  ok  ok  ok");
                     news_xiyan.setAdapter(new NewsListAdapter());
+
                 } else {
                     PromptManager.showToast(newsActivity.this, "网络出现异常");
                     finish();
@@ -169,19 +209,6 @@ public class newsActivity extends AppCompatActivity {
                 super.onPostExecute(newInfos);
             }
         }.executeProxy("");
-
-
-        //对于  listView item的点击事件。
-        news_xiyan.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-                PromptManager.showToastTest(newsActivity.this, "点击了" + position);
-            }
-        });
-
-//        news_xiyan.setAdapter(adapterNews);  //
-//        news_xiyan.setFadingEdgeLength(0);// 删除黑边（上下）
     }
 
 
@@ -218,11 +245,11 @@ public class newsActivity extends AppCompatActivity {
 
         TextView item = new TextView(this);
         item.setText("xxxx");
-        pagers.add(item);
+        pagers.add(xiYan_weihai);
 
         item = new TextView(this);
         item.setText("dddd");
-        pagers.add(item);
+        pagers.add(qitaData);
 
 
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
@@ -247,14 +274,91 @@ public class newsActivity extends AppCompatActivity {
                 switch (position) {
                     case 0:
                         fcTitle.setTextColor(Color.RED);
+                        if (news_xiyan.getAdapter() == null) {
+                            newsList();
+                        }
+
                         break;
                     case 1:
                         tcTitle.setTextColor(Color.RED);
+
+                        if (xiYan_weihai.getAdapter() == null) {
+
+
+                            jieyanList();
+                        }
                         break;
                     case 2:
                         gpcTitle.setTextColor(Color.RED);
+                        if (qitaData.getAdapter() == null) {
+
+
+                            qitaLists();
+                        }
                         break;
                 }
+            }
+
+            /**
+             * 向其他的  listView  填充数据
+             */
+            private void qitaLists() {
+                final NewsNet newsNet = new NewsNet();
+                new MyHttpAsyncTask<String, List<NewInfo>>(newsActivity.this) {
+
+
+                    @Override
+                    protected List<NewInfo> doInBackground(String... params) {
+                        newInfoList = newsNet.getQitaFromInternet();
+                        return newInfoList;
+                    }
+
+                    @Override
+                    protected void onPostExecute(List<NewInfo> newInfos) {
+                        if (newInfos != null) {
+                            list_news_item = newInfos;
+//                  LogUtils.Logi("AnyscTask","xxxxx  ok  ok  ok");
+                            qitaData.setAdapter(new NewsListAdapter());
+
+
+                        } else {
+                            PromptManager.showToast(newsActivity.this, "网络出现异常");
+                            finish();
+                        }
+                        super.onPostExecute(newInfos);
+                    }
+                }.executeProxy("");
+            }
+
+            /**
+             * 向 戒烟 的 的 listview 填充数据
+             */
+            private void jieyanList() {
+                final NewsNet newsNet = new NewsNet();
+                new MyHttpAsyncTask<String, List<NewInfo>>(newsActivity.this) {
+
+
+                    @Override
+                    protected List<NewInfo> doInBackground(String... params) {
+                        newInfoList = newsNet.getJieYanFromInternet();
+                        return newInfoList;
+                    }
+
+                    @Override
+                    protected void onPostExecute(List<NewInfo> newInfos) {
+                        if (newInfos != null) {
+                            list_news_item = newInfos;
+//                  LogUtils.Logi("AnyscTask","xxxxx  ok  ok  ok");
+                            xiYan_weihai.setAdapter(new NewsListAdapter());
+
+
+                        } else {
+                            PromptManager.showToast(newsActivity.this, "网络出现异常");
+                            finish();
+                        }
+                        super.onPostExecute(newInfos);
+                    }
+                }.executeProxy("");
             }
 
             @Override

@@ -159,7 +159,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:layout_marginLeft="56dp"
+                    android:layout_marginLeft="25dp"
                     android:padding="8dp"
                     android:text="@string/string_hall_zongAll"
                     android:textColor="#000"

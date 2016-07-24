@@ -23,6 +23,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.sdingba.su.alphabet_demotest.R;
 import com.sdingba.su.alphabet_demotest.SharPredInter;
@@ -30,6 +31,7 @@ import com.sdingba.su.alphabet_demotest.tables.viewTables.PieChartActivity;
 import com.sdingba.su.alphabet_demotest.utils.LogUtils;
 import com.sdingba.su.alphabet_demotest.utils.PromptManager;
 import com.sdingba.su.alphabet_demotest.view.SetDataPlan;
+import com.sdingba.su.alphabet_demotest.view.maxallActviity;
 
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -167,28 +169,59 @@ public class HallFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
+                Intent t = new Intent();
+                t.setClass(getActivity(), maxallActviity.class);
+                startActivity(t);
 
             }
         });
         setLanya.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                String number = pref.getString(SharPredInter.ZUIHOU_Yan_Num, "");
+                if (number.equals("")) {
+                    PromptManager.showToast(getActivity(), "无数据...");
+                } else {
+
+                    boolean islisv = pref.getBoolean(SharPredInter.isBooleOk, false);
+
+                    if (islisv) {
+                        if (Integer.valueOf(number) > 10) {
+                            String str = "on";
+                            str += number;
+                            listener.sendActivity(str);
+                            revicesMainString.setText(str);
+                        } else {
+                            String str = "in";
+                            str += number;
+                            listener.sendActivity("in");
+                            revicesMainString.setText(str);
+                        }
+
+                        SharedPreferences.Editor editor = pref.edit();
+                        editor.putBoolean(SharPredInter.isBooleOk, false);
+                        editor.commit();
+                    }else{
+                        PromptManager.showToast(getActivity(), "今日不可激活了...");
+                    }
 
 
+
+                }
             }
         });
         dataOnline.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-
+                listener.sendActivity("get");
+                revicesMainString.setText("get");
             }
         });
 
         tubiaoTable.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Toast.makeText(getActivity(), "4", Toast.LENGTH_SHORT).show();
 
             }
         });
@@ -306,14 +339,15 @@ public class HallFragment extends Fragment {
     private void updateYunNumber() {
         String newNubmer = pref.getString(SharPredInter.NEW_day_xiYan, "");
         String lastNubmer = pref.getString(SharPredInter.SECTION_Yan_Num, "");
-        String allNubmer = pref.getString(SharPredInter.All_Yan_NUMBER, "");
-        if (newNubmer.equals("") || lastNubmer.equals("") || allNubmer.equals("")) {
+        String zuihouNubmer = pref.getString(SharPredInter.ZUIHOU_Yan_Num, "");
+        //String allNubmer = pref.getString(SharPredInter.All_Yan_NUMBER, "");
+        if (newNubmer.equals("") || lastNubmer.equals("") || zuihouNubmer.equals("")) {
 //			PromptManager.showToast(getActivity(),"还没有设置数据");
         } else {
-            int aaa = Integer.parseInt(lastNubmer) - Integer.parseInt(newNubmer);
+            int aaa = Integer.parseInt(zuihouNubmer) - Integer.parseInt(newNubmer);
             lastNumber.setText(aaa + "");
             newDayXiNumber.setText(newNubmer);
-            AllYunNumber.setText(allNubmer);
+            AllYunNumber.setText(zuihouNubmer);
         }
     }
 
@@ -554,7 +588,26 @@ public class HallFragment extends Fragment {
 //			buttonPanel.setText(data.getString("aaa"));
 //			LogUtils.Logi(TAG,":::"+data.getString("aaa"));
 
-            revicesMainString.setText("" + data.getString("aaa"));
+            String number = data.getString("aaa");
+            revicesMainString.setText("" + number);
+
+            String newNumber = pref.getString(SharPredInter.NEW_day_xiYan, "");
+            if (newNumber.equals("")) {
+                PromptManager.showToast(getActivity(),"同步蓝牙错误...");
+            }else{
+                if (Integer.valueOf(newNumber) > Integer.valueOf(number)) {
+                    SharedPreferences.Editor editor = pref.edit();
+                    editor.putString(SharPredInter.NEW_day_xiYan, number);
+                    editor.commit();
+                }else{
+                    PromptManager.showToast(getActivity(),"同步蓝牙错误(同步数据小于历史数据)...");
+                }
+
+            }
+
+
+
+
             LogUtils.Logi(TAG, ":::" + data.getString("aaa"));
 
 

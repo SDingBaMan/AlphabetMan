@@ -53,6 +53,7 @@ public class SetDataPlan extends Activity {
     private ListView listDataView;
 
     private Button simbutButton;
+    private Button morenSet;
 
     private Boolean isCunData = false;
 
@@ -65,6 +66,11 @@ public class SetDataPlan extends Activity {
 
     private String datalist;
 
+    private String username;
+
+
+    private TextView setData_goMain;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,7 +79,7 @@ public class SetDataPlan extends Activity {
 
         newdayTime = new SimpleDateFormat("yyyyMMdd").format(new Date()).toString();
         pref = getSharedPreferences(SharPredInter.SHAR_TABLE_NAME, MODE_PRIVATE);
-
+        username = pref.getString(SharPredInter.USER_NAME, "");
         initview();
 
 
@@ -83,6 +89,14 @@ public class SetDataPlan extends Activity {
 
         AddsetData = (Button) findViewById(R.id.add_setData);
         setdatanewday = (TextView) findViewById(R.id.setdatanewday);
+        setData_goMain = (TextView) findViewById(R.id.setData_goMain);
+        setData_goMain.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                finish();
+            }
+        });
 
         listDataView = (ListView) findViewById(R.id.set_data_scoloer);
         adapter = new dataListAdapter();
@@ -108,8 +122,10 @@ public class SetDataPlan extends Activity {
                 }
             });
 
+
+
             //给 setDataYenList 进行赋值
-            //解析6：3:8,1:8,1:8,3:8,3:8,8:12,1:8,3:8,3:8
+            //解析
 
             String[] partyB = datalist.split("\\,");
             for (String par : partyB) {
@@ -177,15 +193,64 @@ public class SetDataPlan extends Activity {
         listDataView.setAdapter(adapter);
 
 
-        simbutButton = (Button) findViewById(R.id.simbut_button);
-        simbutButton.setOnClickListener(new View.OnClickListener() {
+        morenSet = (Button) findViewById(R.id.morenSet);
+        morenSet.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
+                if (username.equals("") || username == null) {
+                    PromptManager.showToast(SetDataPlan.this, "请先登陆");
+
+                    return;
+                }
 
                 if (isCunData) {
                     PromptManager.showToast(SetDataPlan.this, "计划没有完成，不可以重复提交哦...");
                 } else {
+//                    senddataYanPlan senddataYanPlan = new senddataYanPlan();
+//                    String username = pref.getString(SharPredInter.USER_NAME, "");
+
+                    String datastrdata = "5:16,5:12,5:10,5:9,5:6,5:3";
+
+                    //setDataList(datastrdata);
+
+                    setDataYenList.clear();
+
+
+
+                    String[] partyB = datastrdata.split("\\,");
+                    for (String par : partyB) {
+                        SetDataYan setdateOne = new SetDataYan();
+                        String[] liss = par.split("\\:");
+                        setdateOne.setDaytime(liss[0]);
+                        setdateOne.setYanNumber(liss[1]);
+                        setDataYenList.add(setdateOne);
+                    }
+                    //todo 通知更新 adapter
+                    adapter.notifyDataSetChanged();
+
+                }
+            }
+        });
+
+        simbutButton = (Button) findViewById(R.id.simbut_button);
+        simbutButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (username.equals("") || username == null) {
+                    PromptManager.showToast(SetDataPlan.this, "请先登陆");
+
+                    return;
+                }
+
+                if (isCunData) {
+                    PromptManager.showToast(SetDataPlan.this, "计划没有完成，不可以重复提交哦...");
+                } else {
+
+                    if (setDataYenList.isEmpty()) {
+                        PromptManager.showToast(SetDataPlan.this, "不能提交空数据...");
+                        return;
+                    }
                     //暂时没有数据
                     //1 提交数据给服务器，
                     //a 封装数据；
@@ -203,56 +268,82 @@ public class SetDataPlan extends Activity {
                     final String datastrdata = bf.toString();
 
 
-                    senddataYanPlan senddataYanPlan = new senddataYanPlan();
-                    String username = pref.getString(SharPredInter.USER_NAME, "");
-
-
-                    senddataYanPlan.setDatasetSc(datastrdata);
-                    senddataYanPlan.setStarttime(newdayTime);
-                    senddataYanPlan.setUsername(username);
-
-                    new MyHttpAsyncTask<senddataYanPlan, String>(SetDataPlan.this) {
-                        @Override
-                        protected void onPreExecute() {
-                            super.onPreExecute();
-                        }
-
-                        @Override
-                        protected String doInBackground(senddataYanPlan... params) {
-                            senddataYanPlan sendObject = params[0];
-                            SetDataEngine engine = new SetDataEngineImpl();
-                            String reslute = engine.sendServerData(sendObject);
-                            return reslute;
-                        }
-
-                        @Override
-                        protected void onPostExecute(String s) {
-                            String rel = s;
-                            if (rel.equals("") || rel == null) {
-                                PromptManager.showToast(SetDataPlan.this, "服务出现异常，请检测网络...");
-                            } else {
-                                if (rel.equals("ok")) {
-                                    PromptManager.showToast(SetDataPlan.this, "提交成功");
-                                    //2，初始化本地数据
-
-                                    //给出提示信息，是否确定添加
-                                    dataTimeUtils dateUtils = new dataTimeUtils(SetDataPlan.this);
-                                    dateUtils.PullStringToDate(newdayTime, datastrdata);
-
-                                    isCunData = true;
-                                } else if (rel.equals("error")) {
-                                    isCunData = false;
-                                    PromptManager.showToast(SetDataPlan.this, "服务出现异常，请检测网络...");
-                                }
-                            }
-                            super.onPostExecute(s);
-                        }
-                    }.executeProxy(senddataYanPlan);
+                    setDataList(datastrdata);
 
 
                 }
             }
+
+
         });
+    }
+
+    /**
+     * 提交  计划数据 给服务器
+     * @param datastrdata
+     */
+    private void setDataList(final String datastrdata) {
+        senddataYanPlan senddataYanPlan = new senddataYanPlan();
+
+
+
+        senddataYanPlan.setDatasetSc(datastrdata);
+        senddataYanPlan.setStarttime(newdayTime);
+        senddataYanPlan.setUsername(username);
+
+        new MyHttpAsyncTask<senddataYanPlan, String>(SetDataPlan.this) {
+            @Override
+            protected void onPreExecute() {
+                super.onPreExecute();
+            }
+
+            @Override
+            protected String doInBackground(senddataYanPlan... params) {
+                senddataYanPlan sendObject = params[0];
+                SetDataEngine engine = new SetDataEngineImpl();
+                String reslute = engine.sendServerData(sendObject);
+                return reslute;
+            }
+
+            @Override
+            protected void onPostExecute(String s) {
+                String rel = s;
+                if (rel.equals("") || rel == null) {
+                    PromptManager.showToast(SetDataPlan.this, "服务出现异常，请检测网络...");
+                } else {
+                    if (rel.equals("ok")) {
+                        PromptManager.showToast(SetDataPlan.this, "提交成功");
+                        //2，初始化本地数据
+
+                        //给出提示信息，是否确定添加
+                        dataTimeUtils dateUtils = new dataTimeUtils(SetDataPlan.this);
+                        dateUtils.PullStringToDate(newdayTime, datastrdata);
+
+                        String datalistDay = pref.getString(SharPredInter.Schedule_table, "");
+                        if (!datalistDay.equals("")) {
+                            setDataYenList.clear();
+
+                            String[] partyB = datalistDay.split("\\,");
+                            for (String par : partyB) {
+                                SetDataYan setdateOne = new SetDataYan();
+                                String[] liss = par.split("\\:");
+                                setdateOne.setDaytime(liss[0]);
+                                setdateOne.setYanNumber(liss[1]);
+                                setDataYenList.add(setdateOne);
+                            }
+                            //todo 通知更新 adapter
+                            adapter.notifyDataSetChanged();
+                        }
+
+                        isCunData = true;
+                    } else if (rel.equals("error")) {
+                        isCunData = false;
+                        PromptManager.showToast(SetDataPlan.this, "服务出现异常，请检测网络...");
+                    }
+                }
+                super.onPostExecute(s);
+            }
+        }.executeProxy(senddataYanPlan);
     }
 
 

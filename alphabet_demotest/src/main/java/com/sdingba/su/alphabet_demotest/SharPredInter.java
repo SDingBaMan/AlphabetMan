@@ -27,6 +27,16 @@ public interface SharPredInter {
     String NEW_day_xiYan = "newDayYanNumber";
 
     /**
+     * 这次 每天可以吸烟 的根数
+     */
+    String SECTION_Yan_Num = "sectionYan";
+
+    /**
+     * 这次 每天可以吸烟 的根数
+     */
+    String ZUIHOU_Yan_Num = "zuihouXiYan";
+
+    /**
      * 总共吸烟次数
      */
     String All_Yan_NUMBER = "allYanNumber";
@@ -38,10 +48,7 @@ public interface SharPredInter {
      */
     String Pre_ACTIVA_Time = "lastTime";
 
-    /**
-     * 这次 每天可以吸烟 的根数
-     */
-    String SECTION_Yan_Num = "sectionYan";
+
 
     /**
      * 这段  戒烟 计划的最后一天  是几号
@@ -67,7 +74,7 @@ public interface SharPredInter {
      * 今日 是否 吸烟 结束
      * boolean 类型
      * false代表不可以了
-     * true 可以
+     * true 可以 吸烟，可以同步数据
      */
     String isBooleOk = "isBooleOk";
 
@@ -91,6 +98,18 @@ public interface SharPredInter {
      * 计划的结束时间
      */
     String EndTimeSchedule = "endtimeSchedule";
+
+
+    /**
+     * 存储 今日 赠送 的 的 数量
+     */
+    String SEND_YAN_OTHER = "sendyanNumber";
+
+    /**
+     * 存储 别人送我的烟
+     */
+    String FOR_ME_YANNUMBER = "formeyanNumber";
+
 
 
 }

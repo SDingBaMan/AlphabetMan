@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.sdingba.su.alphabet_demotest.view.newsActivity">
+
+    <RelativeLayout
+        android:id="@+id/title"
+        android:layout_width="fill_parent"
+        android:layout_height="60dp"
+
+        android:background="#111211">
+
+        <TextView
+            android:id="@+id/News_chart_goMain"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerInParent="true"
+            android:background="@drawable/selector_head_back"
+            android:clickable="true"
+            android:gravity="center"
+            android:text="返 回"
+            android:textColor="#ffebebeb"
+            android:textSize="15sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/id_main_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="发送 数据"
+            android:textColor="#ffffff"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+
+    </RelativeLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dip"
+            android:layout_marginRight="20dip"
+            android:layout_marginTop="20dip"
+            android:text="主题 ： "
+            android:textColor="#101010"
+            android:textSize="24dp" />
+
+        <EditText
+            android:id="@+id/titlesendmessage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dip"
+            android:layout_marginRight="20dip"
+            android:hint=" "
+            android:padding="10dip"
+            android:singleLine="true"
+            android:text="我的戒烟 * 心得" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dip"
+            android:layout_marginRight="20dip"
+            android:layout_marginTop="20dip"
+            android:text="分享内容 ： "
+            android:textColor="#000000"
+            android:textSize="24dp" />
+
+        <EditText
+            android:id="@+id/contextsendmessage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dip"
+            android:layout_marginRight="20dip"
+            android:layout_marginTop="20dip"
+            android:hint=" "
+            android:padding="10dip" />
+
+
+        <Button
+            android:id="@+id/simbut_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:layout_marginBottom="6dp"
+            android:layout_marginLeft="13dip"
+            android:layout_marginRight="13dp"
+            android:layout_marginTop="30dp"
+            android:background="@drawable/selector_off_or_on"
+            android:text=" 发 送 "
+            android:textSize="24dip" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dip"
+            android:orientation="horizontal"
+            android:padding="5dip">
+
+            <Button
+                android:id="@+id/data_zuijing"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dip"
+                android:layout_marginRight="8dip"
+                android:layout_weight="1"
+                android:background="@drawable/selector_off_or_on"
+                android:text="最近情况数据"
+                android:textSize="18dip" />
+
+            <Button
+                android:id="@+id/data_setting"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dip"
+                android:layout_marginRight="8dip"
+                android:layout_weight="1"
+                android:background="@drawable/selector_off_or_on"
+                android:text="设置计划数据"
+                android:textSize="18dip" />
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/clear_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:layout_marginBottom="6dp"
+            android:layout_marginLeft="13dip"
+            android:layout_marginRight="13dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/selector_off_or_on"
+            android:text=" 清 空 "
+            android:textSize="20dip" />
+
+
+    </LinearLayout>
+
+
+</LinearLayout>
+
+
+    <!--    <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="315dp"
+            android:background="#f8f8f8" >
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="270dp"
+                android:layout_alignParentTop="true"
+                android:scaleType="center"
+                android:src="@drawable/header_bg" />
+
+            <ImageView
+                android:id="@+id/iv_avatar"
+                android:layout_width="84dp"
+                android:layout_height="84dp"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true"
+                android:layout_margin="12dp"
+                android:background="#fff"
+                android:padding="2dp"
+                android:src="@drawable/icon_myavatar" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/ll_msg"
+            android:layout_width="148dp"
+            android:layout_height="48dp"
+            android:background="#575757"
+            android:visibility="gone"
+            android:layout_gravity="center_horizontal" >
+
+            <ImageView
+                android:layout_margin="8dp"
+                android:id="@+id/msg_avatar"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_centerVertical="true"
+                android:src="@drawable/icon_myavatar" />
+
+            <TextView
+                android:gravity="center_horizontal"
+                 android:layout_centerVertical="true"
+                android:layout_toRightOf="@+id/msg_avatar"
+                android:paddingRight="8dp"
+                android:id="@+id/msg_text"
+                 android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="1条新消息"
+                android:textColor="#fff"
+                />
+        </RelativeLayout>-->

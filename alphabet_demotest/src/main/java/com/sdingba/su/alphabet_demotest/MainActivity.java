@@ -79,7 +79,7 @@ public class MainActivity extends FragmentActivity implements HallFragment.HallF
 
 
 
-//    lanya===========================================================================
+//  lanya===========================================================================
 
 
 //    private static MainActivity instance = null;
@@ -130,21 +130,21 @@ public class MainActivity extends FragmentActivity implements HallFragment.HallF
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_main);
 
-//        mBtAdapter = BluetoothAdapter.getDefaultAdapter();
+        mBtAdapter = BluetoothAdapter.getDefaultAdapter();
 
-//        if (mBtAdapter == null) {
-////            Toast.makeText(this, "Bluetooth is not available", Toast.LENGTH_LONG).show();
-//            Toast.makeText(this, " Bluetooth is not available------Bluetooth 手机不支持", Toast.LENGTH_LONG).show();
-//            // TODO: 16-6-21 +++++++++++ 模拟器调试 线注释
-////            finish();
-//            return;
-//        }
+        if (mBtAdapter == null) {
+//            Toast.makeText(this, "Bluetooth is not available", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, " Bluetooth is not available------Bluetooth 手机不支持", Toast.LENGTH_LONG).show();
+            // TODO: 16-6-21 +++++++++++ 模拟器调试 线注释
+//            finish();
+            return;
+        }
 
 
 
 
         //// TODO: 16-6-22 xxxxx
-//        service_init();
+        service_init();
 
         singleton = this;
         initView();
@@ -282,6 +282,8 @@ public class MainActivity extends FragmentActivity implements HallFragment.HallF
                             Intent intent = new Intent("com.sdingba.activityToHallFragment");
                             intent.putExtra("aaa", "["+currentDateTimeString+"] RX: "+text);
                             sendBroadcast(intent);
+
+
 
 
 //                            messageListView.smoothScrollToPosition(listAdapter.getCount() - 1);
@@ -449,7 +451,7 @@ public class MainActivity extends FragmentActivity implements HallFragment.HallF
                     if (LinkLanyaCC.getText().equals("ON")){
                         //Connect button pressed, open DeviceListActivity
                         // class, with popup windows that scan for devices
-                        showMessage(" =-=======-= ");
+                        //showMessage(" =-=======-= ");
                         Intent newIntent = new Intent(MainActivity.this,
                                 DeviceListActivity.class);
                         startActivityForResult(newIntent, REQUEST_SELECT_DEVICE);
@@ -541,6 +543,14 @@ public class MainActivity extends FragmentActivity implements HallFragment.HallF
      * @param message
      */
     private void sendMessageToLanya(String message) {
+        appSendDataToLanyaCC(message);
+    }
+
+    /**
+     * app 发送数据给 蓝牙cc2541的代码，
+     * @param message
+     */
+    private void appSendDataToLanyaCC(String message) {
         byte[] value;
         try {
             //send data to service
@@ -568,18 +578,18 @@ public class MainActivity extends FragmentActivity implements HallFragment.HallF
     public void onDestroy() {
         super.onDestroy();
 
-//        try {
-//            LocalBroadcastManager.
-//                    getInstance(this).
-//                    unregisterReceiver(UARTStatusChangeReceiver);
-//        } catch (Exception ignore) {
-//            Log.e(TAG, ignore.toString());
-//        }
+        try {
+            LocalBroadcastManager.
+                    getInstance(this).
+                    unregisterReceiver(UARTStatusChangeReceiver);
+        } catch (Exception ignore) {
+            Log.e(TAG, ignore.toString());
+        }
 //        }
 
         // TODO: 16-6-6 取消绑定；
-//        unbindService(mServiceConnection);
-//        mService.stopSelf();
+        unbindService(mServiceConnection);
+        mService.stopSelf();
         mService= null;
 
         Log.d(TAG, "onDestroy()");
@@ -619,16 +629,16 @@ public class MainActivity extends FragmentActivity implements HallFragment.HallF
 
 //// TODO: 16-6-21 检测是否开启蓝牙
         Log.d(TAG, "onResume");
-//        Log.d(TAG, "onResume     :     "+mBtAdapter.isEnabled());
+        Log.d(TAG, "onResume     :     "+mBtAdapter.isEnabled());
 
-//
-//        if (!mBtAdapter.isEnabled()) {
-////            showMessage("onResume     :     "+mBtAdapter.isEnabled());
-////            showMessage("onResume : mBtAdapter.isEnabled() is :"+mBtAdapter.isEnabled());
-//            Log.i(TAG, "onResume - BT not enabled yet");
-//            Intent enableIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
-//            startActivityForResult(enableIntent, REQUEST_ENABLE_BT);
-//        }
+
+        if (!mBtAdapter.isEnabled()) {
+//            showMessage("onResume     :     "+mBtAdapter.isEnabled());
+//            showMessage("onResume : mBtAdapter.isEnabled() is :"+mBtAdapter.isEnabled());
+            Log.i(TAG, "onResume - BT not enabled yet");
+            Intent enableIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
+            startActivityForResult(enableIntent, REQUEST_ENABLE_BT);
+        }
     }
 
     @Override

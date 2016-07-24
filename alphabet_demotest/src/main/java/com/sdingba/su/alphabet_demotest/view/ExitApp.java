@@ -39,6 +39,7 @@ public class ExitApp extends Activity {
                 editor.putString(SharPredInter.All_Yan_NUMBER, "");
                 editor.putString(SharPredInter.Pre_ACTIVA_Time, "");
                 editor.putString(SharPredInter.SECTION_Yan_Num, "");
+                editor.putString(SharPredInter.ZUIHOU_Yan_Num, "");
                 editor.putString(SharPredInter.LAST_SECTION_DAY, "");
                 editor.putString(SharPredInter.Schedule_table, "");
                 editor.putString(SharPredInter.Last_Schedule_table, "");
@@ -47,6 +48,7 @@ public class ExitApp extends Activity {
                 editor.putString(SharPredInter.timeDaySum, "");
                 editor.putString(SharPredInter.OrigendDateNumber, "");
                 editor.putString(SharPredInter.EndTimeSchedule, "");
+                editor.putString(SharPredInter.SEND_YAN_OTHER, "");
 
 
 

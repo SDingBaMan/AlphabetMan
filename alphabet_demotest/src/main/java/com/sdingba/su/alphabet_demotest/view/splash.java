@@ -16,8 +16,10 @@ import com.sdingba.su.alphabet_demotest.bean.Netbean.userDataDay;
 import com.sdingba.su.alphabet_demotest.bean.friendBean;
 import com.sdingba.su.alphabet_demotest.engine.Impl.UserDataEngineImpl;
 import com.sdingba.su.alphabet_demotest.engine.Impl.UserEngineImpl;
+import com.sdingba.su.alphabet_demotest.engine.Impl.sendNumberEngineImpl;
 import com.sdingba.su.alphabet_demotest.engine.UserDataEngine;
 import com.sdingba.su.alphabet_demotest.engine.UserEngine;
+import com.sdingba.su.alphabet_demotest.engine.sendNumberEngine;
 import com.sdingba.su.alphabet_demotest.net.MyHttpAsyncTask;
 import com.sdingba.su.alphabet_demotest.utils.PromptManager;
 import com.sdingba.su.alphabet_demotest.utils.dataTimeUtils;
@@ -106,8 +108,8 @@ public class splash extends Activity {
     }
 
     /**
-     * 检测是否要更新 数据项
-     * 更新新的 近端时间的安排
+     * 检测 是 否要 更新 数据项
+     * 更 新新 的 近端 时间 的 安排
      *
      * @param newDay
      */
@@ -122,11 +124,17 @@ public class splash extends Activity {
 //                    PromptManager.showToast(splash.this, "计划结束了。。。");
 //                    break;
 //                }
+
                 String returndd = dateUtils.getLastDataSc();
+
                 if (returndd.equals("ok")) {
                     lastdate = pref.getString(SharPredInter.LAST_SECTION_DAY, "");
                 } else if (returndd.equals("error")) {
                     PromptManager.showToast(splash.this, "error 上次设置数据到期，请重新设置");
+                    SharedPreferences.Editor editor = pref.edit();
+                    editor.putString(SharPredInter.Schedule_table, "");
+                    editor.commit();
+
                     break;
                 }
             }
@@ -158,13 +166,20 @@ public class splash extends Activity {
             PromptManager.showToast(splash.this, "未获取到上次吸烟数据...");
             return;
         } else {
-            if (Integer.parseInt(endTime) > Integer.parseInt(newDay)) {
+            if (Integer.parseInt(endTime) >= Integer.parseInt(newDay)) {  //  计划结束时间   和   今天的时间
+
                 if (!preAvtivi.equals("")) {
-                    if (Integer.parseInt(newDay) > Integer.parseInt(preAvtivi)) {
+                    if (Integer.parseInt(newDay) > Integer.parseInt(preAvtivi)) {//  上一次激活的时间   和   今天的时间
+
+
+
+
+//
+
                         //今天是否可以吸烟了；
 
                         // TODO: 16-6-24 把“昨天”（上一次） 的 数据告诉服务器
-                        // 上床数据给服务器 。昨天的数据 。
+                        // 上传 数据给服务器 。昨天的数据 。
 
                         String DayxiYanNumber = pref.getString(SharPredInter.NEW_day_xiYan, "");
                         String dayAll = pref.getString(SharPredInter.SECTION_Yan_Num, "");
@@ -202,18 +217,95 @@ public class splash extends Activity {
                                     PromptManager.showToast(splash.this, "error 提交数据错误");
                                 } else if ("ok".equals(s)) {
                                     PromptManager.showToast(splash.this, "ok 提交数据成功");
+
+                                    //修改今日吸烟的数量。
+
                                     SharedPreferences.Editor editorT = pref.edit();
                                     editorT.putString(SharPredInter.Pre_ACTIVA_Time, newDay);
                                     editorT.putBoolean(SharPredInter.isBooleOk, true);
+
+
+                                    ///////////////////////////////////////////////
+
+                                    String sengYan = pref.getString(SharPredInter.SEND_YAN_OTHER, "");
+                                    String keyiYanNumber = pref.getString(SharPredInter.SECTION_Yan_Num, "");
+                                    editorT.putString(SharPredInter.ZUIHOU_Yan_Num, keyiYanNumber);
+                                    int number = 0;
+                                    if (!sengYan.equals("")) {//
+                                        number = Integer.valueOf(sengYan);
+                                        if (number > 0) {
+
+                                            int mun = Integer.parseInt(keyiYanNumber) - number;
+
+                                            if (mun > 0) {
+                                                String yanNumber = String.valueOf(mun);
+                                                editorT.putString(SharPredInter.ZUIHOU_Yan_Num, yanNumber);
+                                            } else {
+                                                editorT.putString(SharPredInter.ZUIHOU_Yan_Num, "0");
+
+                                            }
+
+                                        }
+                                    }
                                     editorT.commit();
+
+                                    ///////////////////////////////////////////////
+
+
+
                                 }
                                 super.onPostExecute(s);
                             }
                         }.executeProxy(userdate);
 
-//                        PromptManager.showToast(splash.this, "昨天 数据 告诉服务器 了");
+//////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////
 
+//                        PromptManager.showToast(splash.this, "昨天 数据 告诉服务器 了");
+                        new MyHttpAsyncTask<String, String>(splash.this) {
+                            @Override
+                            protected String doInBackground(String... params) {
+                                String userId = params[0];
+                                sendNumberEngine engine = new sendNumberEngineImpl();
+
+                                return engine.getSendYanNumber(userId);
+                            }
+
+                            @Override
+                            protected void onPostExecute(String s) {
+
+                                String next = s;
+                                if (next == null || next.equals("")) {
+
+                                }else{
+                                    String keyiYanNumber2 = pref.getString(SharPredInter.ZUIHOU_Yan_Num, "");
+                                    int num = Integer.valueOf(next);
+                                    SharedPreferences.Editor editor = pref.edit();
+
+                                        int mun = Integer.parseInt(keyiYanNumber2) + num;
+                                        String yanNum = String.valueOf(mun);
+
+                                        editor.putString(SharPredInter.ZUIHOU_Yan_Num, yanNum);
+
+
+                                    editor.commit();
+                                }
+
+                                super.onPostExecute(s);
+                            }
+                        }.executeProxy(username);
+                    } else {
+                        //PromptManager.showToast(splash.this, "系统出现问题，上次记录时间大于今天时间。");
                     }
+
+
+
+
+
+
                 }
             } else {
                 SharedPreferences.Editor editorT = pref.edit();
@@ -221,6 +313,8 @@ public class splash extends Activity {
                 editorT.commit();
                 PromptManager.showToast(splash.this, "上次设置数据到期，请重新设置");
             }
+
+
         }
     }
 

@@ -1,6 +1,7 @@
 
 package com.sdingba.su.alphabet_demotest.tables.viewTables;
 
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -30,9 +31,16 @@ import com.github.mikephil.charting.interfaces.datasets.IDataSet;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import com.github.mikephil.charting.utils.ColorTemplate;
 import com.sdingba.su.alphabet_demotest.R;
+import com.sdingba.su.alphabet_demotest.SharPredInter;
+import com.sdingba.su.alphabet_demotest.bean.userData;
+import com.sdingba.su.alphabet_demotest.engine.Impl.UserDataEngineImpl;
+import com.sdingba.su.alphabet_demotest.engine.UserDataEngine;
+import com.sdingba.su.alphabet_demotest.net.MyHttpAsyncTask;
 import com.sdingba.su.alphabet_demotest.tables.notimportant.DemoBase;
+import com.sdingba.su.alphabet_demotest.utils.PromptManager;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class PieChartActivity extends DemoBase
         implements OnSeekBarChangeListener,
@@ -41,11 +49,17 @@ public class PieChartActivity extends DemoBase
 
     private static final String TAG = "PieChartActivity";
     private PieChart mChart;
-    private SeekBar mSeekBarX, mSeekBarY;
-    private TextView tvX, tvY;
-    
+//    private SeekBar mSeekBarX, mSeekBarY;
+//    private TextView tvX, tvY;
+
+
+    private SharedPreferences pref;
+
     private Typeface tf;
     private TextView goBack;
+
+    private TextView xiyanValue;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,13 +67,13 @@ public class PieChartActivity extends DemoBase
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_piechart);
 
-        tvX = (TextView) findViewById(R.id.tvXMax);
-        tvY = (TextView) findViewById(R.id.tvYMax);
+//        tvX = (TextView) findViewById(R.id.tvXMax);
+//        tvY = (TextView) findViewById(R.id.tvYMax);
 
 
-
-        mSeekBarX = (SeekBar) findViewById(R.id.seekBar1);
-        mSeekBarY = (SeekBar) findViewById(R.id.seekBar2);
+        xiyanValue = (TextView) findViewById(R.id.xiyanNumber);
+//        mSeekBarX = (SeekBar) findViewById(R.id.seekBar1);
+//        mSeekBarY = (SeekBar) findViewById(R.id.seekBar2);
         goBack = (TextView) findViewById(R.id.pieChart_goBack);
         goBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -69,7 +83,7 @@ public class PieChartActivity extends DemoBase
         });
 
 
-        mSeekBarY.setProgress(10);
+//        mSeekBarY.setProgress(10);
 
 //        mSeekBarX.setOnSeekBarChangeListener(this);
 //        mSeekBarY.setOnSeekBarChangeListener(this);
@@ -108,18 +122,94 @@ public class PieChartActivity extends DemoBase
         // add a selection listener
         mChart.setOnChartValueSelectedListener(this);
 
-        setData(7, 100);
+        addTable();
 
+
+        pref = getSharedPreferences(SharPredInter.SHAR_TABLE_NAME, MODE_PRIVATE);
+
+        String usernamexx = pref.getString(SharPredInter.USER_NAME, "");
+
+        if (usernamexx != null && usernamexx != "") {
+
+            new MyHttpAsyncTask<String, List<userData>>(PieChartActivity.this) {
+
+                @Override
+                protected void onPreExecute() {
+
+
+                    super.onPreExecute();
+                }
+
+                @Override
+                protected List<userData> doInBackground(String... params) {
+                    String userName = params[0];
+                    List<userData> userDatas = null;
+                    UserDataEngine userData = new UserDataEngineImpl();
+
+                    userDatas = userData.pullUserDatafromWeb(userName);
+
+                    return userDatas;
+                }
+
+                @Override
+                protected void onPostExecute(List<userData> userDatas) {
+                    List<userData> uus = userDatas;
+                    if (uus == null) {
+                        PromptManager.showToast(PieChartActivity.this, "数据获取网路失败");
+                        return;
+                    }
+                    int valueNumberXiYan = 0;
+                    ArrayList<Entry> yVals1 = new ArrayList<Entry>();
+                    ArrayList<String> xVals = new ArrayList<String>();
+                    for (int i = 0; i < uus.size(); i++) {
+                        userData next = uus.get(i);
+                        int yiNumber = Integer.parseInt(next.getDataNumber());
+                        valueNumberXiYan += yiNumber;
+                        yVals1.add(new Entry((float) yiNumber + 1, i));
+                        xVals.add(next.getDatetime());
+                    }
+                    xiyanValue.setText(valueNumberXiYan + " （根）");
+                    setData(7, 100, yVals1, xVals);
+
+                    super.onPostExecute(userDatas);
+                }
+            }.executeProxy(usernamexx);
+
+
+        } else {
+            xiyanValue.setText("没有登陆无数据");
+        }
+
+
+
+    }
+
+    private void addTable() {
+
+        ArrayList<Entry> yVals1 = new ArrayList<Entry>();
+        for (int i = 0; i < 7; i++) {
+            yVals1.add(new Entry((float) i + 1, i));
+        }
+
+
+        ArrayList<String> xVals = new ArrayList<String>();
+        for (int i = 0; i < 7; i++) {
+            //todo 添加  右边的数据 的  以及  图像上面的时间显示
+//            xVals.add(mParties2[i % mParties2.length]);
+            xVals.add(mParties2[i % mParties2.length]);
+
+        }
+        setData(7, 100, yVals1,xVals);
 //        tvX.setText("" + (3 + 1));
 //        tvY.setText("" + (100));
-        tvX.setText("");
-        tvY.setText("");
+//        tvX.setText("");
+//        tvY.setText("");
 
 
-        mSeekBarX.setProgress(6);
-        mSeekBarY.setProgress(10);
-        mSeekBarX.setVisibility(View.INVISIBLE);
-        mSeekBarY.setVisibility(View.INVISIBLE);
+//        mSeekBarX.setProgress(7);
+//        mSeekBarY.setProgress(10);
+//        mSeekBarX.setVisibility(View.INVISIBLE);
+//        mSeekBarY.setVisibility(View.INVISIBLE);
 
         mChart.animateY(1400, Easing.EasingOption.EaseInOutQuad);
         // mChart.spin(2000, 0, 360);
@@ -198,41 +288,46 @@ public class PieChartActivity extends DemoBase
     @Override
     public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
 
-        tvX.setText("" + (mSeekBarX.getProgress() + 1));
-        tvY.setText("" + (mSeekBarY.getProgress()));
-        Log.i(TAG,"xxxxxxxxxxxxxxxxxxx" + mSeekBarX.getProgress());
-        Log.i(TAG,"xxxxxxxxxxxxxxxxxxx" + mSeekBarY.getProgress());
-//        setData(mSeekBarX.getProgress(), mSeekBarY.getProgress());
-        setData(7, 10);
+//        tvX.setText("" + (mSeekBarX.getProgress() + 1));
+//        tvY.setText("" + (mSeekBarY.getProgress()));
+//        Log.i(TAG,"xxxxxxxxxxxxxxxxxxx" + mSeekBarX.getProgress());
+//        Log.i(TAG,"xxxxxxxxxxxxxxxxxxx" + mSeekBarY.getProgress());
+//      setData(mSeekBarX.getProgress(), mSeekBarY.getProgress());
+//        setData(7, 10);
     }
 
-    private void setData(int count, float range) {
+    private void setData(int count, float range, ArrayList<Entry> yVals1, ArrayList<String> xVals) {
 
         float mult = range;
 
-        ArrayList<Entry> yVals1 = new ArrayList<Entry>();
 
+        // PromptManager.showToast(PieChartActivity.this, String.valueOf(count));
         // IMPORTANT: In a PieChart, no values (Entry) should have the same
         // xIndex (even if from different DataSets), since no values can be
         // drawn above each other.
-        for (int i = 0; i < count + 1; i++) {
 
-            // TODO: 16-7-20  添加数据的函数。
-            yVals1.add(new Entry((float) (Math.random() * mult) + mult / 5, i));
-//            yVals1.add(new Entry((float) i+1, i));
-            Log.i(TAG, "sssssssssssssssss" + (Math.random() * mult) + mult / 5);
-            Log.i(TAG,"xxxxxxxxxxxxxxxxx     :    "+i);
-        }
+        // for (int i = 0; i < count; i++) {
 
-        ArrayList<String> xVals = new ArrayList<String>();
 
-        for (int i = 0; i < count + 1; i++)
-            xVals.add(mParties2[i % mParties2.length]);
+        // TODO: 16-7-20  添加数据的函数。
+//            yVals1.add(new Entry((float) (Math.random() * mult) + mult / 5, i));
+//            yVals1.add(new Entry((float) 10, i));
+        // yVals1.add(new Entry((float) i+1, i));
+//            Log.i(TAG, "sssssssssssssssss" + (Math.random() * mult) + mult / 5);
+//            Log.i(TAG,"xxxxxxxxxxxxxxxxx     :    "+i);
+        //  }
 
+//        ArrayList<String> xVals = new ArrayList<String>();
+//        for (int i = 0; i < count; i++) {
+//            //todo 添加  右边的数据 的  以及  图像上面的时间显示
+////            xVals.add(mParties2[i % mParties2.length]);
+//            xVals.add(mParties2[i % mParties2.length]);
+//
+//        }
         //添加的vertical的  显示。
         PieDataSet dataSet = new PieDataSet(yVals1, "  时间显示");
         dataSet.setSliceSpace(3f);
-        dataSet.setSelectionShift(5f);
+        dataSet.setSelectionShift(4f);
 
         // add a lot of colors
 
@@ -259,9 +354,10 @@ public class PieChartActivity extends DemoBase
         //dataSet.setSelectionShift(0f);
 
         PieData data = new PieData(xVals, dataSet);
+        //// TODO: 16-7-20
         data.setValueFormatter(new PercentFormatter());
-        data.setValueTextSize(11f);
-        data.setValueTextColor(Color.WHITE);
+        data.setValueTextSize(13f);
+        data.setValueTextColor(Color.BLACK);
         data.setValueTypeface(tf);
         mChart.setData(data);
 
@@ -274,7 +370,7 @@ public class PieChartActivity extends DemoBase
 
     private SpannableString generateCenterSpannableText() {
 
-        SpannableString s = new SpannableString(" SDingBa Man \ndeveloped by Alphabet man");
+        SpannableString s = new SpannableString(" SDingBa Man \n developed by Alphabet man");
         s.setSpan(new RelativeSizeSpan(1.7f), 0, 14, 0);
         s.setSpan(new StyleSpan(Typeface.NORMAL), 14, s.length() - 15, 0);
         s.setSpan(new ForegroundColorSpan(Color.GRAY), 14, s.length() - 15, 0);

@@ -140,7 +140,7 @@ public class MainActivity extends Activity implements RadioGroup.OnCheckedChange
                     if (btnConnectDisconnect.getText().equals("Connect")){
                         //Connect button pressed, open DeviceListActivity
                         // class, with popup windows that scan for devices
-                        showMessage(" =-=======-= ");
+                       // showMessage(" =-=======-= ");
                         Intent newIntent = new Intent(MainActivity.this,
                                 DeviceListActivity.class);
                         startActivityForResult(newIntent, REQUEST_SELECT_DEVICE);
