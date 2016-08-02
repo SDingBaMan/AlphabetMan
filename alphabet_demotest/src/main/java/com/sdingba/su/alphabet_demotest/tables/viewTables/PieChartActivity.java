@@ -356,7 +356,7 @@ public class PieChartActivity extends DemoBase
         PieData data = new PieData(xVals, dataSet);
         //// TODO: 16-7-20
         data.setValueFormatter(new PercentFormatter());
-        data.setValueTextSize(13f);
+        data.setValueTextSize(15f);
         data.setValueTextColor(Color.BLACK);
         data.setValueTypeface(tf);
         mChart.setData(data);

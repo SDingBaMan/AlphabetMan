@@ -11,6 +11,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
@@ -28,6 +29,7 @@ import android.widget.Toast;
 import com.sdingba.su.alphabet_demotest.R;
 import com.sdingba.su.alphabet_demotest.SharPredInter;
 import com.sdingba.su.alphabet_demotest.tables.viewTables.PieChartActivity;
+import com.sdingba.su.alphabet_demotest.tables.viewTables.RadarChartActivitry;
 import com.sdingba.su.alphabet_demotest.utils.LogUtils;
 import com.sdingba.su.alphabet_demotest.utils.PromptManager;
 import com.sdingba.su.alphabet_demotest.view.SetDataPlan;
@@ -185,25 +187,27 @@ public class HallFragment extends Fragment {
 
                     boolean islisv = pref.getBoolean(SharPredInter.isBooleOk, false);
 
-                    if (islisv) {
+                   // if (islisv) {
                         if (Integer.valueOf(number) > 10) {
-                            String str = "on";
+                            String str = "in";
                             str += number;
                             listener.sendActivity(str);
                             revicesMainString.setText(str);
                         } else {
-                            String str = "in";
+                            String str = "on";
                             str += number;
-                            listener.sendActivity("in");
+                            listener.sendActivity(str);
                             revicesMainString.setText(str);
                         }
 
-                        SharedPreferences.Editor editor = pref.edit();
-                        editor.putBoolean(SharPredInter.isBooleOk, false);
-                        editor.commit();
-                    }else{
-                        PromptManager.showToast(getActivity(), "今日不可激活了...");
-                    }
+//                        SharedPreferences.Editor editor = pref.edit();
+//
+//   editor.putBoolean(SharPredInter.isBooleOk, false);
+//                        editor.commit();
+
+//                    }else{
+//                        PromptManager.showToast(getActivity(), "今日不可激活了...");
+//                    }
 
 
 
@@ -221,7 +225,9 @@ public class HallFragment extends Fragment {
         tubiaoTable.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getActivity(), "4", Toast.LENGTH_SHORT).show();
+                Intent intent2 = new Intent();
+                intent2.setClass(getActivity(), RadarChartActivitry.class);
+                startActivity(intent2);
 
             }
         });
@@ -591,26 +597,83 @@ public class HallFragment extends Fragment {
             String number = data.getString("aaa");
             revicesMainString.setText("" + number);
 
-            String newNumber = pref.getString(SharPredInter.NEW_day_xiYan, "");
-            if (newNumber.equals("")) {
-                PromptManager.showToast(getActivity(),"同步蓝牙错误...");
-            }else{
-                if (Integer.valueOf(newNumber) > Integer.valueOf(number)) {
-                    SharedPreferences.Editor editor = pref.edit();
-                    editor.putString(SharPredInter.NEW_day_xiYan, number);
-                    editor.commit();
-                }else{
-                    PromptManager.showToast(getActivity(),"同步蓝牙错误(同步数据小于历史数据)...");
+            if (number.equals("")) {
+
+            } else if (number.equals("error")) {
+
+            } else if (number.equals("errordata")) {
+
+            } else if (number.equals("kais")||number.equals("guan")) {
+
+            }
+            else{
+
+                String newNumber = pref.getString(SharPredInter.NEW_day_xiYan, "");
+                String setNumber = pref.getString(SharPredInter.ZUIHOU_Yan_Num, "");
+                if (newNumber.equals("")) {
+                    PromptManager.showToast(getActivity(),"同步蓝牙错误...");
+                }else {
+
+                    String numbers = isSingleOrDouble(number);
+                    System.out.println("fffffff" + number.length());
+
+
+                    if (Integer.valueOf(setNumber) >= Integer.valueOf(numbers)) {
+
+                        if (Integer.valueOf(newNumber) < Integer.valueOf(numbers)) {
+
+                            SharedPreferences.Editor editor = pref.edit();
+
+                            editor.putString(SharPredInter.NEW_day_xiYan, numbers);
+
+                            editor.commit();
+
+                            updateYunNumber();
+
+
+                        } else {
+                            PromptManager.showToast(getActivity(), "同步蓝牙错误(同步数据小于历史数据)...");
+                        }
+
+
+                    }
+
+
                 }
 
             }
-
-
 
 
             LogUtils.Logi(TAG, ":::" + data.getString("aaa"));
 
 
         }
+    }
+
+    /**
+     * 处理返回的数据 是否 是 各位是还是2位数
+     * @param number
+     * @return
+     */
+    private String isSingleOrDouble(String number) {
+        boolean doubles = false;
+
+        String[] aa = {"1","2","3","4","5","6","7","8","9","0"};
+        String nextStr = number.substring(1, 2);
+        for (int i = 0; i < 10; i++) {
+            if (nextStr.equals(aa[i])) {
+                doubles = true;
+            }
+        }
+
+        String numbers = "0";
+
+        if (doubles == true) {
+            numbers = number.substring(0, 2);
+        }else{
+            numbers = number.substring(0, 1);
+
+        }
+        return numbers;
     }
 }

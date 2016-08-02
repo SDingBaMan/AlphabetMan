@@ -51,11 +51,13 @@ public class maxallActviity extends Activity {
                 if (number == null) {
 
                 }else{
-                    allmax.setText("根据你的吸烟情况，\n你的吸烟总数为吸" +
+                    allmax.setText("根据你的吸烟情况，" +
+                            "\n你的吸烟总数为吸" +
                             "：" + number[0] + "根，\n" +
                             "用户平均的吸烟数据是：" + number[1] +
                             ",\n你的吸烟平均数据是" + number[2]+
-                            ",\n需要继续努力...");
+                            ",\n\n" +
+                            "建议：需要继续努力...");
 
                 }
 

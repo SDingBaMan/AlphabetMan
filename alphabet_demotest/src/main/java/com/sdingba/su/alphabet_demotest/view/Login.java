@@ -223,7 +223,7 @@ public class Login extends Activity {
                         editor.commit();
 
                     }else{
-                        PromptManager.showToast(Login.this,"网络崩溃,狗逼程序员加班中...");
+                        PromptManager.showToast(Login.this,"网络崩溃,狗逼程序员加班中（friend）...");
                     }
                     super.onPostExecute(friendBean);
                 }

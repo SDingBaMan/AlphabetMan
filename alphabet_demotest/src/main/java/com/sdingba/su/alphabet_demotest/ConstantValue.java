@@ -18,8 +18,9 @@ public interface ConstantValue {
      * 服务器  ip  一
      * 10.0.2.2
      */
-    String WEB_URL_CONSTANT = "10.10.39.11:8080";//创新501 // TODO: 16-6-28 改
+      String WEB_URL_CONSTANT = "10.10.39.11:8080";//创新501 // TODO: 16-6-28 改
 //    String WEB_URL_CONSTANT = "172.16.178.3:8080";// linshi
+//    String WEB_URL_CONSTANT = "192.168.1.108:8080";// linshi
 
     /**
      * 服务器  ip  二

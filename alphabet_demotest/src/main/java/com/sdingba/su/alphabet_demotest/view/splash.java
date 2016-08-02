@@ -359,7 +359,7 @@ public class splash extends Activity {
                         editor.commit();
 
                     } else {
-                        PromptManager.showToast(splash.this, "网络崩溃,狗逼程序员加班中...");
+                        PromptManager.showToast(splash.this, "网络崩溃,狗逼程序员加班中(friend)...");
                     }
 
                     tiaoZ();

@@ -17,6 +17,7 @@
         android:gravity="center" >
 
         <EditText
+            android:singleLine="true"
             android:id="@+id/home_et_search"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

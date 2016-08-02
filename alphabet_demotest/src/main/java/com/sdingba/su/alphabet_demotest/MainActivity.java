@@ -280,7 +280,8 @@ public class MainActivity extends FragmentActivity implements HallFragment.HallF
 
 
                             Intent intent = new Intent("com.sdingba.activityToHallFragment");
-                            intent.putExtra("aaa", "["+currentDateTimeString+"] RX: "+text);
+//                            intent.putExtra("aaa", "["+currentDateTimeString+"] RX: "+text);
+                            intent.putExtra("aaa",text);
                             sendBroadcast(intent);
 
 

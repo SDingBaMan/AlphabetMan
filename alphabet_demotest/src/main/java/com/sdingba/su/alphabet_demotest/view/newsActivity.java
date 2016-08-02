@@ -94,12 +94,12 @@ public class newsActivity extends AppCompatActivity {
     private static final String TAG = "newsActivity";
     private ViewPager viewPager;
     /**
-     * 填充 View 的数组
+     *  填  充   View 的 数组
      */
     private List<View> pagers;
 
     /**
-     * 存  网络 返回的数据
+     *  存  网络 返回的数据
      */
     private List<NewInfo> newInfoList;
     private ImageView underLine;
@@ -110,6 +110,8 @@ public class newsActivity extends AppCompatActivity {
     private TextView fcTitle;
     private TextView tcTitle;
     private TextView gpcTitle;
+
+    private TextView News_chart_goMain;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -129,6 +131,16 @@ public class newsActivity extends AppCompatActivity {
      * 初始化其他的布局
      */
     private void initView() {
+
+        News_chart_goMain = (TextView) findViewById(R.id.News_chart_goMain);
+        News_chart_goMain.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                finish();
+            }
+        });
+
         news_xiyan = new ListView(this);
         xiYan_weihai = new ListView(this);
         qitaData = new ListView(this);
@@ -213,6 +225,7 @@ public class newsActivity extends AppCompatActivity {
 
 
     private void initTabStrip() {
+
         underLine = (ImageView) findViewById(R.id.ii_category_selector);
 
         fcTitle = (TextView) findViewById(R.id.ii_category_fc);
